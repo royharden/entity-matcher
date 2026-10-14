@@ -16,7 +16,14 @@ From the repository root, use Python3.12 with uv and Node22.12 or newer:
     npm ci
     npm run build
 
-The Python command reports models-only status without keys or network calls. The static frontend builds to dist/. No listener or provider call is started by these commands.
+The Python command reports the current read-only stage without keys or network calls. The static frontend builds to dist/. No listener or provider call is started by these commands.
+
+Inspect explicitly selected local files with:
+
+    uv run python -m entity_matcher validate catalog-a.csv --dataset a
+    uv run python -m entity_matcher candidates catalog-a.csv catalog-b.csv --max-output 100
+
+These commands print JSON to standard output and leave source files unchanged. Validation findings contain row/field locations without raw cell values. Candidate previews carry identities/hashes and blocking metadata; they are not judged matches or human decisions. Distinct dataset namespaces are required. Preview truncation is explicit and separate from candidate generation caps. Secret and agent-only paths are refused before reading.
 
 ## Architecture and limits
 

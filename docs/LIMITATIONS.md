@@ -1,6 +1,6 @@
 # Current limitations
 
-This is partial source, with a setup-state CLI and static setup preview. It does not yet perform the full import, judge, calibrate, review, journal-replay and export workflow. The implemented CSV validator accepts only the fixed eight-column schema, bounded strict decoding and explicit supported legacy overrides. Raw IDs/strings remain exact; normalization is separate.
+This is partial source, with read-only validate/candidates CLI commands and a static setup preview. It does not yet perform the full judge, calibrate, review, journal-replay and export workflow. The implemented CSV validator accepts only the fixed eight-column schema, bounded strict decoding and explicit supported legacy overrides. Raw IDs/strings remain exact; normalization is separate. CLI inspection leaves source files unchanged and performs no model dispatch or human-ruling operation.
 
 Quantity parsing supports declared code units, complete decimal expressions and optional integer pack prefixes. Bare ounces are ambiguous; US fluid ounces are an explicit default that can be rejected. Unknown quantity/brand data is not equality. Price is nonnegative Decimal metadata. Neither raw relatedness nor native confidence is a correctness probability.
 

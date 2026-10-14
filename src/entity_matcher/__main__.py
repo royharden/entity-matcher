@@ -1,22 +1,6 @@
-"""Show an honest keyless setup state without starting infrastructure."""
+"""Keyless read-only inspection; starts no service and performs no model dispatch."""
 
-import json
-
-
-def main() -> None:
-    print(
-        json.dumps(
-            {
-                "application": "entity-matcher",
-                "status": "models-only",
-                "matching_models_available": True,
-                "matching_available": False,
-                "next_step": "See README.md for current setup and implementation status.",
-            },
-            sort_keys=True,
-        )
-    )
-
+from .cli.main import main
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
