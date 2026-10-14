@@ -1,6 +1,6 @@
 # Matching models and identity
 
-The current portable slice is shared/match/models.py with identity.py and the package __init__.py. It depends on Pydantic v2; use relative imports when copying these three files into another package. Tests copy exactly that closure into a temporary portable_match package and run an isolated consumer. No parser, normalizer, matcher, provider, evidence resolver, calibration estimator or ruling reducer is implemented.
+The portable model slice is shared/match/models.py with identity.py and the package __init__.py. It depends on Pydantic v2; use relative imports when copying these three files into another package. A larger core adds normalize.py, quantity.py, aliases.py, blocking.py and candidates.py. Tests move both closures into isolated consumer packages. CSV validation lives separately in io/catalog.py. Domain evidence checks accept supplied retained raw records; no generic Pointer dispatcher, complete matcher pipeline, provider, fitted calibration estimator or ruling reducer is implemented.
 
 RawProduct requires exactly eight decoded strings: id, name, brand, size, unit, price, category, description. id/name must be nonempty; optional data stays an empty string. Every string is bounded to 8192 UTF8 bytes. Namespace dataset_id is bounded to 256 UTF8 bytes. Whitespace, decimal text, case and Unicode sequences stay exact. Schema string limits count characters and carry byte-limit metadata; Python validation enforces UTF8 byte bounds. A later importer will enforce file/row limits and decoding.
 

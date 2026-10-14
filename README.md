@@ -2,7 +2,7 @@
 
 Compare two product catalogs, inspect match evidence and retain human decisions. The intended workflow exports reviewed matches and reusable matching/calibration tools.
 
-Current release contains the package scaffold and strict matching models/identity helpers. Catalog import, matching, human review, provider integration and evaluation are not implemented. The frontend is a setup preview.
+Current source contains strict matching models/identity, bounded CSV validation, separate normalization/quantity/aliases, capped candidate retrieval and exact raw-field evidence checks. Offline rule constraints are implemented; fuzzy scoring requires RapidFuzz and fails explicitly if absent. A complete comparison workflow, fitted calibration, human review, provider integration and accuracy evaluation are not implemented. The frontend is a setup preview.
 
 ## Keyless setup
 
@@ -22,7 +22,7 @@ The Python command reports models-only status without keys or network calls. The
 
 Python owns future matching and append-only rulings; React presents future review packets. The static viewer target uses no hosted database. Python execution and authoritative local persistence will remain separate from any static hosting. See ARCHITECTURE.md and BOLT-HANDOFF.md.
 
-Implemented models and digest profiles are documented in docs/matching-models.md; generated schemas are in schemas/match/. Future shared-provider, generic ruling-store and evidence-resolver implementations require verified owner source. No source module is vendored yet.
+Implemented models and digest profiles are documented in docs/matching-models.md; generated schemas are in schemas/match/. Generic provider, ruling-store and evidence-dispatch implementations require verified owner source. No foreign module is vendored yet. See docs/LIMITATIONS.md for the partial workflow and unmeasured quality gates.
 
 Accuracy, blocking recall, review burden, provider usage/cost and latency are not yet measured. No results table or successful end-to-end comparison is claimed by this scaffold. The intended fuzzy/rules/Jev/LLM comparison must use frozen data and generated results.
 
