@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "RecordIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 256
+        },
+        "record_id": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        }
+      },
+      "required": [
+        "dataset_id",
+        "record_id"
+      ],
+      "title": "RecordIdentity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "pair_generation": {
+      "maxLength": 68,
+      "minLength": 68,
+      "pattern": "^pg1:[0-9a-f]{64}$",
+      "title": "Pair Generation",
+      "type": "string"
+    },
+    "pair_key": {
+      "maxLength": 68,
+      "minLength": 68,
+      "pattern": "^pk1:[0-9a-f]{64}$",
+      "title": "Pair Key",
+      "type": "string"
+    },
+    "raw_fingerprints": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      ],
+      "title": "Raw Fingerprints",
+      "type": "array"
+    },
+    "refs": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/RecordIdentity"
+        },
+        {
+          "$ref": "#/$defs/RecordIdentity"
+        }
+      ],
+      "title": "Refs",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": 1,
+      "maximum": 1,
+      "minimum": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "refs",
+    "raw_fingerprints",
+    "pair_key",
+    "pair_generation"
+  ],
+  "title": "PairIdentity",
+  "type": "object"
+}

@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "config_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Config Sha256",
+      "type": "string"
+    },
+    "dev_manifest_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Dev Manifest Sha256",
+      "type": "string"
+    },
+    "support_count": {
+      "minimum": 1,
+      "title": "Support Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "dev_manifest_sha256",
+    "config_sha256",
+    "support_count"
+  ],
+  "title": "CalibrationEvidence",
+  "type": "object"
+}

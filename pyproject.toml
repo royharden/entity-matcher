@@ -9,7 +9,7 @@ description = "Local product-catalog comparison with human-reviewed evidence"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
-dependencies = []
+dependencies = ["pydantic>=2.12,<3"]
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.9"]

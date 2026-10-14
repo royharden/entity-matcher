@@ -1,0 +1,307 @@
+{
+  "$defs": {
+    "CalibrationEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "config_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Config Sha256",
+          "type": "string"
+        },
+        "dev_manifest_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Dev Manifest Sha256",
+          "type": "string"
+        },
+        "support_count": {
+          "minimum": 1,
+          "title": "Support Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dev_manifest_sha256",
+        "config_sha256",
+        "support_count"
+      ],
+      "title": "CalibrationEvidence",
+      "type": "object"
+    },
+    "JudgmentProposal": {
+      "additionalProperties": false,
+      "description": "Raw signals plus explicit calibration provenance, never a human event.",
+      "properties": {
+        "calibration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CalibrationEvidence"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "issue_codes": {
+          "default": [],
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-z][a-z0-9_.-]*$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Issue Codes",
+          "type": "array"
+        },
+        "kind": {
+          "const": "judgment_proposal",
+          "default": "judgment_proposal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "fuzzy",
+            "rules",
+            "jev",
+            "llm"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "native_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Confidence"
+        },
+        "native_probabilities": {
+          "anyOf": [
+            {
+              "items": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "maxItems": 10,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Probabilities"
+        },
+        "p_same": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P Same"
+        },
+        "relatedness": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relatedness"
+        },
+        "schema_version": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "unavailable",
+            "invalid",
+            "error"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "method",
+        "status"
+      ],
+      "title": "JudgmentProposal",
+      "type": "object"
+    },
+    "PairIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "pair_generation": {
+          "maxLength": 68,
+          "minLength": 68,
+          "pattern": "^pg1:[0-9a-f]{64}$",
+          "title": "Pair Generation",
+          "type": "string"
+        },
+        "pair_key": {
+          "maxLength": 68,
+          "minLength": 68,
+          "pattern": "^pk1:[0-9a-f]{64}$",
+          "title": "Pair Key",
+          "type": "string"
+        },
+        "raw_fingerprints": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          ],
+          "title": "Raw Fingerprints",
+          "type": "array"
+        },
+        "refs": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/RecordIdentity"
+            },
+            {
+              "$ref": "#/$defs/RecordIdentity"
+            }
+          ],
+          "title": "Refs",
+          "type": "array"
+        },
+        "schema_version": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "refs",
+        "raw_fingerprints",
+        "pair_key",
+        "pair_generation"
+      ],
+      "title": "PairIdentity",
+      "type": "object"
+    },
+    "RecordIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 256
+        },
+        "record_id": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        }
+      },
+      "required": [
+        "dataset_id",
+        "record_id"
+      ],
+      "title": "RecordIdentity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "judgment": {
+      "$ref": "#/$defs/JudgmentProposal"
+    },
+    "kind": {
+      "const": "review_proposal",
+      "default": "review_proposal",
+      "title": "Kind",
+      "type": "string"
+    },
+    "pair": {
+      "$ref": "#/$defs/PairIdentity"
+    },
+    "proposed_outcome": {
+      "enum": [
+        "unlinked",
+        "review",
+        "merge"
+      ],
+      "title": "Proposed Outcome",
+      "type": "string"
+    },
+    "reason_codes": {
+      "default": [],
+      "items": {
+        "maxLength": 96,
+        "minLength": 1,
+        "pattern": "^[a-z][a-z0-9_.-]*$",
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": 1,
+      "maximum": 1,
+      "minimum": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "pair",
+    "judgment",
+    "proposed_outcome"
+  ],
+  "title": "ReviewProposal",
+  "type": "object"
+}

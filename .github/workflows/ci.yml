@@ -1,4 +1,4 @@
-name: Scaffold checks
+name: Keyless checks
 
 on: [push, pull_request]
 
@@ -23,6 +23,7 @@ jobs:
       - run: uv sync --frozen
       - run: uv run ruff check .
       - run: uv run ruff format --check .
+      - run: uv run python scripts/generate_match_schemas.py --check
       - run: uv run pytest
       - run: uv run python scripts/check_public_tree.py
       - run: uv run python -m entity_matcher

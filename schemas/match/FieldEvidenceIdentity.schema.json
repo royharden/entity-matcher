@@ -1,0 +1,73 @@
+{
+  "additionalProperties": false,
+  "description": "Domain digest metadata only, not a generic Pointer or a resolver.",
+  "properties": {
+    "dataset_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Dataset Id",
+      "type": "string",
+      "x-maxUtf8Bytes": 256
+    },
+    "evidence_artifact_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Evidence Artifact Sha256",
+      "type": "string"
+    },
+    "excerpt_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Excerpt Sha256",
+      "type": "string"
+    },
+    "field_id": {
+      "enum": [
+        "id",
+        "name",
+        "brand",
+        "size",
+        "unit",
+        "price",
+        "category",
+        "description"
+      ],
+      "title": "Field Id",
+      "type": "string"
+    },
+    "record_id": {
+      "maxLength": 8192,
+      "minLength": 1,
+      "title": "Record Id",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "source_revision": {
+      "maxLength": 68,
+      "minLength": 68,
+      "pattern": "^rg1:[0-9a-f]{64}$",
+      "title": "Source Revision",
+      "type": "string"
+    },
+    "source_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_id",
+    "record_id",
+    "field_id",
+    "source_sha256",
+    "source_revision",
+    "evidence_artifact_sha256",
+    "excerpt_sha256"
+  ],
+  "title": "FieldEvidenceIdentity",
+  "type": "object"
+}

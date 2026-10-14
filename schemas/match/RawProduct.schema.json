@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "description": "Eight decoded raw strings; no price, size or unit parsing occurs here.",
+  "properties": {
+    "brand": {
+      "maxLength": 8192,
+      "title": "Brand",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "category": {
+      "maxLength": 8192,
+      "title": "Category",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "description": {
+      "maxLength": 8192,
+      "title": "Description",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "id": {
+      "maxLength": 8192,
+      "minLength": 1,
+      "title": "Id",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "name": {
+      "maxLength": 8192,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "price": {
+      "maxLength": 8192,
+      "title": "Price",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "size": {
+      "maxLength": 8192,
+      "title": "Size",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    },
+    "unit": {
+      "maxLength": 8192,
+      "title": "Unit",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "brand",
+    "size",
+    "unit",
+    "price",
+    "category",
+    "description"
+  ],
+  "title": "RawProduct",
+  "type": "object"
+}

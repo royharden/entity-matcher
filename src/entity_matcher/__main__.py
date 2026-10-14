@@ -8,7 +8,8 @@ def main() -> None:
         json.dumps(
             {
                 "application": "entity-matcher",
-                "status": "scaffold",
+                "status": "models-only",
+                "matching_models_available": True,
                 "matching_available": False,
                 "next_step": "See README.md for current setup and implementation status.",
             },

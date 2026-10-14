@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "content_hash": {
+      "maxLength": 64,
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "dataset_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Dataset Id",
+      "type": "string",
+      "x-maxUtf8Bytes": 256
+    },
+    "record_id": {
+      "maxLength": 8192,
+      "minLength": 1,
+      "title": "Record Id",
+      "type": "string",
+      "x-maxUtf8Bytes": 8192
+    }
+  },
+  "required": [
+    "dataset_id",
+    "record_id",
+    "content_hash"
+  ],
+  "title": "RecordRef",
+  "type": "object"
+}
