@@ -10,4 +10,6 @@ Rule conflicts and exact product-field evidence checks are implemented. A missin
 
 Generic provider/call-ledger, human-ruling store, evaluation framework, evidence dispatcher and input-screen integration are pending verified owner source. Live Jev/OpenAI access, current pricing, cumulative budget authority and bounded test dispatch remain separate execution gates. No credentials are consumed by this source stage.
 
+Pure local request guards check configured loopback Host/Origin, launch write-token metadata, duplicate/security/proxy headers and actual body byte bounds. They are not a running API, CORS middleware, streaming body reader, route or durable writer. HTTP/browser behavior and server lifecycle have not been exercised. A future HTTP adapter must bound reads before allocating bodies and use the same validated queue/head/generation and owner ruling store. No service or port is started by the current commands.
+
 Required independent synthetic fixtures and frozen development/heldout splits, public non-model cohort, accuracy floors, user-flow tests, API/file review round trips, reusable final exports and independent finished-app review remain pending. Missing features and measurements are not waived by successful source tests or package builds. Bolt import/deployment has not been performed.
