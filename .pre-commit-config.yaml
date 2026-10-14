@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: public-tree-boundary
+        name: Check public tree for private files and credential patterns
+        entry: python scripts/check_public_tree.py
+        language: system
+        pass_filenames: false
+        always_run: true
