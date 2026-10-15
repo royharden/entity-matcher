@@ -1,5 +1,7 @@
 # Entity Matcher
 
+Development is paused. See [the current checkpoint](DEVELOPMENT-STATUS.md) for finished work, work in progress, outstanding tasks and lessons.
+
 Compare two product catalogs and record provisional review decisions locally. CSV inputs remain unchanged; decisions use a separate JSONL journal. Genuine human admission and measured match quality remain unfinished.
 
 The CLI validates catalogs, retrieves bounded candidates, exports raw-field review packets, applies provisional drafts, replays decisions and exports display CSVs. The React viewer source supports packet inspection, decision drafting and file import/download. Browser behavior and its current production build remain unverified. Fuzzy/rules scoring requires RapidFuzz and reports unavailable when absent; unfitted probabilities stay unavailable and proposals stay in review.
