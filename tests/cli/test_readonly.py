@@ -47,7 +47,11 @@ def test_module_entrypoint_returns_actual_stage_json() -> None:
         check=False,
     )
     assert result.returncode == 0, result.stderr
-    assert json.loads(result.stdout)["status"] == "read-only-source"
+    state = json.loads(result.stdout)
+    assert state["status"] == "local-provisional-review-source"
+    assert state["provisional_rulings_available"]
+    assert state["provisional_commands"] == ["packet", "apply-rulings", "export"]
+    assert not state["human_rulings_available"] and not state["interactive_review_available"]
 
 
 def test_validate_json_summary_keeps_data_private_and_source_unchanged(

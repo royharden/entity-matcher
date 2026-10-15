@@ -1,4 +1,4 @@
-"""Bounded explicit-file validation and candidate inspection with zero write/model effects."""
+"""Bounded catalog inspection and explicit local provisional journal review."""
 
 from __future__ import annotations
 
@@ -9,12 +9,16 @@ from dataclasses import asdict
 from pathlib import Path
 
 from ..io.catalog import MAX_FILE_BYTES, CatalogValidation, validate_catalog
+from ..pipeline.apply_draft import DraftApplyError
 from ..pipeline.review_page import ReviewPageError, encode_review_page, make_review_page
+from ..pipeline.ruling_packet import RulingPacketError
 from ..pipeline.workspace import WorkspaceError, create_workspace
 from ..shared.match.aliases import MAX_ALIAS_BYTES, AliasError, load_aliases
 from ..shared.match.blocking import BlockingPolicy
 from ..shared.match.candidates import generate_candidates
 from ..shared.match.normalize import normalize_record
+from ..shared.rulings.store import JournalError
+from .review import COMMANDS, register_commands, run_command
 
 PROTECTED_PARTS = {".creds", ".thinking", ".agent-registry", ".agent-work", ".chatexports", ".git"}
 
@@ -59,7 +63,7 @@ def validation_view(result: CatalogValidation) -> dict:
 def stage_state() -> dict:
     return {
         "application": "entity-matcher",
-        "status": "read-only-source",
+        "status": "local-provisional-review-source",
         "matching_models_available": True,
         "candidate_inspection_available": True,
         "matching_available": False,
@@ -67,6 +71,8 @@ def stage_state() -> dict:
         "review_page_export_available": True,
         "calibrated_matching_available": False,
         "human_rulings_available": False,
+        "provisional_rulings_available": True,
+        "provisional_commands": list(COMMANDS),
         "interactive_review_available": False,
         "next_step": "See README.md and docs/LIMITATIONS.md for implemented and pending features.",
     }
@@ -97,10 +103,36 @@ def main(argv: list[str] | None = None) -> int:
     review.add_argument("--method", choices=("rules", "fuzzy"), default="rules")
     review.add_argument("--offset", type=int, default=0)
     review.add_argument("--limit", type=int, default=50)
+    register_commands(commands)
     args = parser.parse_args(argv)
     code = 0
     try:
-        if args.command is None:
+        if args.command in COMMANDS:
+            try:
+                encoded, code = run_command(
+                    args, read_file=read_explicit_file, protected_parts=PROTECTED_PARTS
+                )
+            except InputFailure:
+                raise
+            except (DraftApplyError, RulingPacketError, WorkspaceError, JournalError) as error:
+                output = {"stage": args.command, "status": "invalid", "issue_code": str(error)}
+                print(json.dumps(output, sort_keys=True))
+                return 2
+            except ValueError:
+                output = {
+                    "stage": args.command,
+                    "status": "invalid",
+                    "issue_code": "review_request_invalid",
+                }
+                print(json.dumps(output, sort_keys=True))
+                return 2
+            buffer = getattr(sys.stdout, "buffer", None)
+            if buffer is None:
+                sys.stdout.write(encoded.decode("utf-8"))
+            else:
+                buffer.write(encoded)
+            return code
+        elif args.command is None:
             output = stage_state()
         elif args.command == "validate":
             result = validate_catalog(
