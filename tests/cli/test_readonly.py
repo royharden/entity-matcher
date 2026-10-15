@@ -32,7 +32,8 @@ def test_no_args_reports_only_actual_readonly_stage(capsys: pytest.CaptureFixtur
     """Catches a setup command overclaiming full comparison/ruling/review availability."""
     assert main([]) == 0
     result = json.loads(capsys.readouterr().out)
-    assert result["read_only_commands"] == ["validate", "candidates"]
+    assert result["read_only_commands"] == ["validate", "candidates", "review-page"]
+    assert result["review_page_export_available"]
     assert not result["matching_available"] and not result["human_rulings_available"]
 
 

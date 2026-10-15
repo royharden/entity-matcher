@@ -32,6 +32,12 @@ For the frozen synthetic demo, save a report and open it with **Choose report** 
 
 The viewer shows reported counts, caps, omissions and paged candidate identities. Search covers the imported preview. It records no decisions and does not check the report against current catalogs. Browser interaction and the current viewer's production build still require verification.
 
+To include aligned raw fields, machine proposals and field-evidence metadata, export a review page:
+
+    uv run python -m entity_matcher review-page catalog-a.csv catalog-b.csv --method rules --limit 50 > review-page.json
+
+Open that JSON with the same file chooser. Each file holds at most100 pairs and20MiB of complete JSON. Use the reported next offset to request another page. A byte-limit failure produces an error and no partial page; reduce the limit and retry. Missing scorers and unfitted calibration keep proposals in review. File import grants no human or journal authority.
+
 ## Architecture and limits
 
 Python owns source validation, matching and raw-generation checks. The canonical ruling store uses JSONL; canonical provider accounting uses local SQLite through the Python standard library. React inspection runs separately from those local persistence capabilities. The static viewer requires no hosted database. See ARCHITECTURE.md and BOLT-HANDOFF.md.

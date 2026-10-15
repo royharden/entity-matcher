@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import asdict
 from pathlib import Path
 
 from ..io.catalog import MAX_FILE_BYTES, CatalogValidation, validate_catalog
+from ..pipeline.review_page import ReviewPageError, encode_review_page, make_review_page
+from ..pipeline.workspace import WorkspaceError, create_workspace
 from ..shared.match.aliases import MAX_ALIAS_BYTES, AliasError, load_aliases
 from ..shared.match.blocking import BlockingPolicy
 from ..shared.match.candidates import generate_candidates
@@ -60,7 +63,8 @@ def stage_state() -> dict:
         "matching_models_available": True,
         "candidate_inspection_available": True,
         "matching_available": False,
-        "read_only_commands": ["validate", "candidates"],
+        "read_only_commands": ["validate", "candidates", "review-page"],
+        "review_page_export_available": True,
         "calibrated_matching_available": False,
         "human_rulings_available": False,
         "interactive_review_available": False,
@@ -76,16 +80,23 @@ def main(argv: list[str] | None = None) -> int:
     validation.add_argument("--dataset", required=True)
     validation.add_argument("--encoding")
     candidates = commands.add_parser("candidates", help="Inspect bounded proposed candidates only")
-    candidates.add_argument("a", type=Path)
-    candidates.add_argument("b", type=Path)
-    candidates.add_argument("--dataset-a", default="a")
-    candidates.add_argument("--dataset-b", default="b")
-    candidates.add_argument("--encoding-a")
-    candidates.add_argument("--encoding-b")
-    candidates.add_argument("--aliases", type=Path)
-    candidates.add_argument("--per-a-cap", type=int, default=50)
-    candidates.add_argument("--global-cap", type=int, default=500_000)
+    review = commands.add_parser(
+        "review-page", help="Export a nonauthorizing raw-record review page"
+    )
+    for command in (candidates, review):
+        command.add_argument("a", type=Path)
+        command.add_argument("b", type=Path)
+        command.add_argument("--dataset-a", default="a")
+        command.add_argument("--dataset-b", default="b")
+        command.add_argument("--encoding-a")
+        command.add_argument("--encoding-b")
+        command.add_argument("--aliases", type=Path)
+        command.add_argument("--per-a-cap", type=int, default=50)
+        command.add_argument("--global-cap", type=int, default=500_000)
     candidates.add_argument("--max-output", type=int, default=100)
+    review.add_argument("--method", choices=("rules", "fuzzy"), default="rules")
+    review.add_argument("--offset", type=int, default=0)
+    review.add_argument("--limit", type=int, default=50)
     args = parser.parse_args(argv)
     code = 0
     try:
@@ -97,6 +108,39 @@ def main(argv: list[str] | None = None) -> int:
             )
             output = {"stage": "validation", **validation_view(result)}
             code = 0 if result.accepted else 2
+        elif args.command == "review-page":
+            if args.dataset_a == args.dataset_b:
+                raise InputFailure("dataset_namespaces_must_differ")
+            if not 1 <= args.limit <= 100 or not 0 <= args.offset <= 500000:
+                raise InputFailure("workspace_page_bound")
+            try:
+                policy = BlockingPolicy(per_a_cap=args.per_a_cap, global_cap=args.global_cap)
+            except ValueError:
+                raise InputFailure("blocking_policy_bound_invalid") from None
+            workspace = create_workspace(
+                read_explicit_file(args.a, MAX_FILE_BYTES),
+                read_explicit_file(args.b, MAX_FILE_BYTES),
+                dataset_a=args.dataset_a,
+                dataset_b=args.dataset_b,
+                encoding_a=args.encoding_a,
+                encoding_b=args.encoding_b,
+                aliases_csv=read_explicit_file(args.aliases, MAX_ALIAS_BYTES)
+                if args.aliases
+                else None,
+                policy=policy,
+            )
+            encoded = encode_review_page(
+                make_review_page(
+                    workspace, method=args.method, offset=args.offset, limit=args.limit
+                )
+            )
+            # Finish validation and the full byte bound before writing any output bytes.
+            buffer = getattr(sys.stdout, "buffer", None)
+            if buffer is None:
+                sys.stdout.write(encoded.decode("utf-8"))
+            else:
+                buffer.write(encoded)
+            return 0
         else:
             if args.dataset_a == args.dataset_b:
                 raise InputFailure("dataset_namespaces_must_differ")
@@ -152,5 +196,7 @@ def main(argv: list[str] | None = None) -> int:
         output = {"stage": args.command, "status": "invalid", "issue_code": str(error)}
     except AliasError:
         output = {"stage": args.command, "status": "invalid", "issue_code": "invalid_alias_table"}
+    except (WorkspaceError, ReviewPageError) as error:
+        output = {"stage": args.command, "status": "invalid", "issue_code": str(error)}
     print(json.dumps(output, sort_keys=True))
     return 2
