@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from dataclasses import asdict
 from pathlib import Path
 
+from ..api.fastapi_app import APICapabilityUnavailable
+from ..api.launcher import APILaunchError, policy_from_environment, run_server
 from ..io.catalog import MAX_FILE_BYTES, CatalogValidation, validate_catalog
 from ..pipeline.apply_draft import DraftApplyError
 from ..pipeline.review_page import ReviewPageError, encode_review_page, make_review_page
@@ -103,11 +106,26 @@ def main(argv: list[str] | None = None) -> int:
     review.add_argument("--method", choices=("rules", "fuzzy"), default="rules")
     review.add_argument("--offset", type=int, default=0)
     review.add_argument("--limit", type=int, default=50)
+    serve = commands.add_parser("serve", help="Serve the optional loopback comparison API")
+    serve.add_argument("--port", type=int, required=True)
+    serve.add_argument("--frontend-port", type=int, action="append", default=[])
+    serve.add_argument("--max-requests", type=int, help="Stop after 1..10000 HTTP requests")
     register_commands(commands)
     args = parser.parse_args(argv)
     code = 0
     try:
-        if args.command in COMMANDS:
+        if args.command == "serve":
+            policy = policy_from_environment(args.port, tuple(args.frontend_port), os.environ)
+            if args.max_requests is not None and not 1 <= args.max_requests <= 10000:
+                raise APILaunchError("api_launch_configuration_invalid")
+            print(
+                json.dumps(
+                    {"stage": "serve", "status": "starting", "bind": "127.0.0.1", "port": args.port}
+                ),
+                flush=True,
+            )
+            output = run_server(policy, max_requests=args.max_requests)
+        elif args.command in COMMANDS:
             try:
                 encoded, code = run_command(
                     args, read_file=read_explicit_file, protected_parts=PROTECTED_PARTS
@@ -226,6 +244,8 @@ def main(argv: list[str] | None = None) -> int:
         return code
     except InputFailure as error:
         output = {"stage": args.command, "status": "invalid", "issue_code": str(error)}
+    except (APILaunchError, APICapabilityUnavailable) as error:
+        output = {"stage": args.command, "status": "unavailable", "issue_code": str(error)}
     except AliasError:
         output = {"stage": args.command, "status": "invalid", "issue_code": "invalid_alias_table"}
     except (WorkspaceError, ReviewPageError) as error:
