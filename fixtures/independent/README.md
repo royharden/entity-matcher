@@ -1,0 +1,2 @@
+Frozen DEV/public synthetic fixture surface only.
+Catalogs contain exactly eight raw string columns. DEV cases carry binary provisional labels, not product/family/trap metadata. Demo subsets have 20 records per namespace. Unknown or ambiguous package records may occur in source input but are excluded from binary cases. This is an author construction audit, not independent review or human agreement. Heldout bodies, labels, declarations and construction recipe are excluded. No accuracy or app acceptance is claimed.

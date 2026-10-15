@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "origin": "independent agent_provisional synthetic fixture author",
+  "author_model": "gpt-6.1-sol",
+  "author_workspace_id": "0042",
+  "author_app_id": "0004",
+  "frozen_snapshot_manifest_sha256": "a0285231476aeb450e78620ed7841b2e1d01f08c44fd4dfdcbf70e8dd860237d",
+  "approval_sha256": "df382c6b52b2aebcea965d87f1e16a60ced8d820d8c60b95bbcc6425e4a7a874",
+  "members": [
+    {
+      "bytes": 428,
+      "path": "public/PROVENANCE.json",
+      "sha256": "ff50dbcc94222a737dcfad3f39ea7df33319ac8f4817f7b07f2a52a5fd13b8a1",
+      "target": "fixtures/independent/PROVENANCE.json"
+    },
+    {
+      "bytes": 519,
+      "path": "public/README.md",
+      "sha256": "6b32d90c242530ff24c41a3ea8f200ebd12e521530cf2e6ae5df859ebf3ff430",
+      "target": "fixtures/independent/README.md"
+    },
+    {
+      "bytes": 139,
+      "path": "public/brand-aliases.csv",
+      "sha256": "9c0bcb98ea2c773af74166ce8f9f8b16710bbed521b85ab951d85aefc7feb82f",
+      "target": "fixtures/independent/brand-aliases.csv"
+    },
+    {
+      "bytes": 3249,
+      "path": "public/demo/catalog-A.csv",
+      "sha256": "15536f0efc2a2e22914bc4043ed6e8f8612503e70c66a58c70a9bbe35e5ab2b6",
+      "target": "fixtures/independent/demo/catalog-A.csv"
+    },
+    {
+      "bytes": 3296,
+      "path": "public/demo/catalog-B.csv",
+      "sha256": "c1ee4568a4db9bcb146d03f6dfe455ce03e980fa3354817e9a865fb3d6932667",
+      "target": "fixtures/independent/demo/catalog-B.csv"
+    },
+    {
+      "bytes": 85084,
+      "path": "public/dev/cases.jsonl",
+      "sha256": "03505c1510db2a99c2ed61cc72b638adab707571826a62a292bf56c23f711288",
+      "target": "fixtures/independent/dev/cases.jsonl"
+    },
+    {
+      "bytes": 16035,
+      "path": "public/dev/catalog-A.csv",
+      "sha256": "6893e2fc4bc775d27e05b7a47b7ef9b190e9c75c65de590dd8d4a3607189b11f",
+      "target": "fixtures/independent/dev/catalog-A.csv"
+    },
+    {
+      "bytes": 16311,
+      "path": "public/dev/catalog-B.csv",
+      "sha256": "59890b05dc5f2fe7ccd8a572c16e66601c9aa041208f8ca74868a6e4806d54ee",
+      "target": "fixtures/independent/dev/catalog-B.csv"
+    }
+  ],
+  "public_counts": {
+    "dev_catalog_rows_each": 100,
+    "dev_labelled_pairs": 500,
+    "dev_positive_pairs": 97,
+    "demo_rows_each": 20
+  },
+  "whole_frozen_corpus_metadata_only": {
+    "rows_each_catalog": 200,
+    "labelled_pairs": 1000,
+    "positive_pairs": 195,
+    "ambiguity_omissions": 20,
+    "ambiguous_cartesian_pairs": 1000,
+    "unlabelled_cartesian_pairs": 39000
+  },
+  "scope": "These eight exact public/DEV files only; private/heldout not supplied. Unknown/unlabelled pairs are not negatives. Author construction self-audit is not human Gold or independent quality certification.",
+  "permissions": "local source wiring only; fitting/tuning/controller/provider/publication require separate authority",
+  "serialization": "approved QUOTE_ALL successor; failed earlier snapshot not valid source; exact source strings unchanged",
+  "target_correction": "Exact public fixtures moved out of protected user-data directory; private-data publication guard unchanged."
+}
