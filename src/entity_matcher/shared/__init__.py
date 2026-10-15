@@ -1,1 +1,1 @@
-"""Dependency-light owned modules; foreign modules require verified source adoption."""
+"""Portable shared modules; no imports from the application package."""

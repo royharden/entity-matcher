@@ -1,0 +1,279 @@
+{
+  "owner_component": "BOLT-R01 S3 offline providers/callledger",
+  "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+  "source_tree": "e0aa5796fa163fcbcb5ade87e6a33ed2e645c2e3",
+  "publication_pins": [
+    [
+      "S3-offline-provider-ledger-001.json",
+      "4ae67c968b7cf706f1b9ed3fea60c1c9409f7b7480540da48853ce5602e17c11"
+    ],
+    [
+      "S3-offline-test-assets-supplement-001.json",
+      "d57b5b2b82c91e9639e76d8a06962b1b36e5ce4f70039623d2aae5f69dd7eab0"
+    ]
+  ],
+  "licence": "MIT; original notice retained",
+  "entries": [
+    {
+      "path": "src/llm_router_eval/shared/__init__.py",
+      "sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8",
+      "git_blob": "d54c1da1c6df701267a3ccc931aca3852992f333",
+      "bytes": 72,
+      "target": "src/entity_matcher/shared/__init__.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/README.md",
+      "sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50",
+      "git_blob": "4eb6cce7d1bc853da62db8ce048247375caf0916",
+      "bytes": 7634,
+      "target": "src/entity_matcher/shared/callledger/README.md"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/__init__.py",
+      "sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571",
+      "git_blob": "6bb50990aee74ddaffdfd45933d87eb53d040be8",
+      "bytes": 234,
+      "target": "src/entity_matcher/shared/callledger/__init__.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/ledger.py",
+      "sha256": "207ccd4effe633f44863080957bafa4ca80752397e7aca4eafd541ff50eb2a1d",
+      "git_blob": "595fc556e62adef5bef529b632445a152e718fbc",
+      "bytes": 49859,
+      "target": "src/entity_matcher/shared/callledger/ledger.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/models.py",
+      "sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7",
+      "git_blob": "ad215ff2bbe06472295b06b66487f526cde59eb9",
+      "bytes": 12351,
+      "target": "src/entity_matcher/shared/callledger/models.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/pricing.py",
+      "sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74",
+      "git_blob": "f8d63558e6238f3cabaf2c52611ab3e632dd29c9",
+      "bytes": 9444,
+      "target": "src/entity_matcher/shared/callledger/pricing.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/projection.py",
+      "sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69",
+      "git_blob": "7d20500102b07471caec6362f3b71099ff92df10",
+      "bytes": 1310,
+      "target": "src/entity_matcher/shared/callledger/projection.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/__init__.py",
+      "sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f",
+      "git_blob": "67b42aa73e0e5cfa72f83c0669198f354ca4ed4a",
+      "bytes": 450,
+      "target": "src/entity_matcher/shared/providers/__init__.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/adapters.py",
+      "sha256": "0f04a7f3231c2a22c36541b9cdaeb53214899d4da111f264eab73278847a3023",
+      "git_blob": "6baa3035f8bd7a04e54281833ff2fd144ed3f02b",
+      "bytes": 15650,
+      "target": "src/entity_matcher/shared/providers/adapters.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/captures.py",
+      "sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00",
+      "git_blob": "a632ff56ae51d0a416c0d08bf3a2090aeddfcbe8",
+      "bytes": 7673,
+      "target": "src/entity_matcher/shared/providers/captures.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/controller.py",
+      "sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac",
+      "git_blob": "a82937f5c363b5b069b918c490e8f385e5e65c52",
+      "bytes": 28270,
+      "target": "src/entity_matcher/shared/providers/controller.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/images.py",
+      "sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13",
+      "git_blob": "9ff512f336a219cb7b4dedad400b523b4de1447e",
+      "bytes": 3614,
+      "target": "src/entity_matcher/shared/providers/images.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/models.py",
+      "sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2",
+      "git_blob": "a2c2f478b881e1d172085355f9ee347bba919f9f",
+      "bytes": 18364,
+      "target": "src/entity_matcher/shared/providers/models.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/schema.py",
+      "sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391",
+      "git_blob": "0d84ca157fa6bbd1fac3b7cbc0aba75751f552c3",
+      "bytes": 5605,
+      "target": "src/entity_matcher/shared/providers/schema.py"
+    },
+    {
+      "path": "docs/schemas/allocation.schema.json",
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4",
+      "git_blob": "e0c125e16c47ea91e1b2b934aebc6d1b1324b115",
+      "bytes": 953,
+      "target": "VENDORED/S3-offline/docs/schemas/allocation.schema.json"
+    },
+    {
+      "path": "docs/schemas/billing-policy.schema.json",
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483",
+      "git_blob": "5e2ef7c13078b38ca3f6282fc4ba23c762ad6b06",
+      "bytes": 887,
+      "target": "VENDORED/S3-offline/docs/schemas/billing-policy.schema.json"
+    },
+    {
+      "path": "docs/schemas/budget-authority.schema.json",
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9",
+      "git_blob": "0454dc30a3e382e99d7098d231a5036f098ee2fd",
+      "bytes": 1304,
+      "target": "VENDORED/S3-offline/docs/schemas/budget-authority.schema.json"
+    },
+    {
+      "path": "docs/schemas/call-context.schema.json",
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b",
+      "git_blob": "f9c5ffc1eeb918defec3f1c745f188775a873104",
+      "bytes": 2909,
+      "target": "VENDORED/S3-offline/docs/schemas/call-context.schema.json"
+    },
+    {
+      "path": "docs/schemas/capabilities.schema.json",
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02",
+      "git_blob": "6ee85cfa85f2dd3f9bbe027f5f8780873edf5472",
+      "bytes": 1465,
+      "target": "VENDORED/S3-offline/docs/schemas/capabilities.schema.json"
+    },
+    {
+      "path": "docs/schemas/cost-observation.schema.json",
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60",
+      "git_blob": "15dbbfca0c0e9a865178be87e83c6841302357fe",
+      "bytes": 3875,
+      "target": "VENDORED/S3-offline/docs/schemas/cost-observation.schema.json"
+    },
+    {
+      "path": "docs/schemas/execution-envelope.schema.json",
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4",
+      "git_blob": "1852f4ac6b0414105433c3d6a10a2ac98ed5609b",
+      "bytes": 23937,
+      "target": "VENDORED/S3-offline/docs/schemas/execution-envelope.schema.json"
+    },
+    {
+      "path": "docs/schemas/funding-declaration.schema.json",
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96",
+      "git_blob": "29d0915a7a41848c74dab9b878421a930b5c3886",
+      "bytes": 7772,
+      "target": "VENDORED/S3-offline/docs/schemas/funding-declaration.schema.json"
+    },
+    {
+      "path": "docs/schemas/generate-request.schema.json",
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641",
+      "git_blob": "36caad500a5fdcf33851b6468c96c740efa116b9",
+      "bytes": 5091,
+      "target": "VENDORED/S3-offline/docs/schemas/generate-request.schema.json"
+    },
+    {
+      "path": "docs/schemas/image-part.schema.json",
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4",
+      "git_blob": "88ce6273d830d6a1ad996ff20c1445c367b5d9e3",
+      "bytes": 1756,
+      "target": "VENDORED/S3-offline/docs/schemas/image-part.schema.json"
+    },
+    {
+      "path": "docs/schemas/limits.schema.json",
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa",
+      "git_blob": "5c728119e269c4fcee64759f91537c20a3c9b0d5",
+      "bytes": 2760,
+      "target": "VENDORED/S3-offline/docs/schemas/limits.schema.json"
+    },
+    {
+      "path": "docs/schemas/metadata-record.schema.json",
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988",
+      "git_blob": "101b785eed4abb51f7117b8963fd1ac9afe709dc",
+      "bytes": 9543,
+      "target": "VENDORED/S3-offline/docs/schemas/metadata-record.schema.json"
+    },
+    {
+      "path": "docs/schemas/non-model-span.schema.json",
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20",
+      "git_blob": "209a3816f2f0d23dbec0b3459944af9b355da80b",
+      "bytes": 4693,
+      "target": "VENDORED/S3-offline/docs/schemas/non-model-span.schema.json"
+    },
+    {
+      "path": "docs/schemas/normalized-usage.schema.json",
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46",
+      "git_blob": "9940ec451cded2f0bf0ef9ead03556dd2f37451b",
+      "bytes": 1308,
+      "target": "VENDORED/S3-offline/docs/schemas/normalized-usage.schema.json"
+    },
+    {
+      "path": "docs/schemas/operation-plan.schema.json",
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2",
+      "git_blob": "d461cdfd0012d23eca77fa4423178979647876d6",
+      "bytes": 3699,
+      "target": "VENDORED/S3-offline/docs/schemas/operation-plan.schema.json"
+    },
+    {
+      "path": "docs/schemas/result.schema.json",
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5",
+      "git_blob": "e20d8b9f9185904fb59720123dfd4e701935a25b",
+      "bytes": 14160,
+      "target": "VENDORED/S3-offline/docs/schemas/result.schema.json"
+    },
+    {
+      "path": "docs/schemas/typed-request.schema.json",
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e",
+      "git_blob": "884d9d876dcb520821db5447f56f6969a071f01c",
+      "bytes": 6921,
+      "target": "VENDORED/S3-offline/docs/schemas/typed-request.schema.json"
+    },
+    {
+      "path": "docs/schemas/typed-result.schema.json",
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241",
+      "git_blob": "886652a01195cec9e4c9f421d7030f5755cad694",
+      "bytes": 3976,
+      "target": "VENDORED/S3-offline/docs/schemas/typed-result.schema.json"
+    },
+    {
+      "path": "docs/provider-contracts.md",
+      "sha256": "23e3560e3b4cf108e8029217a6fc012ec40d969429fc272f356f5d0badd0a71a",
+      "git_blob": "817fb52770fb09dc69be9cf2a2c462ba4743479e",
+      "bytes": 7715,
+      "target": "VENDORED/S3-offline/docs/provider-contracts.md"
+    },
+    {
+      "path": "docs/INTERFACE.md",
+      "sha256": "52f17a1b1e31d3ecee30d03a8feab6884e71d4ca762f67251f7be93b76e7516f",
+      "git_blob": "2cc07908d0649dc3cb67badc802febc38139b5d3",
+      "bytes": 5518,
+      "target": "VENDORED/S3-offline/docs/INTERFACE.md"
+    },
+    {
+      "path": "docs/LIMITATIONS.md",
+      "sha256": "e4ee289a4d9332cf87ec7826a1941e7b74f71b6c890a3d27b8507995307e24f2",
+      "git_blob": "bf587ae34299d7e2528a00b37388b978f0a03171",
+      "bytes": 1660,
+      "target": "VENDORED/S3-offline/docs/LIMITATIONS.md"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "git_blob": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "bytes": 1067,
+      "target": "VENDORED/S3-offline/LICENSE"
+    },
+    {
+      "path": "prices/synthetic-unit-v1.json",
+      "sha256": "9cec5acd6b2e2de720df07b90ddb0cdd049866146a2f33c7577a7dd7f345b91f",
+      "git_blob": "4b94ef22e4b4b8cb3fa9a3db34de145ffa786e25",
+      "bytes": 726,
+      "target": "VENDORED/S3-offline/prices/synthetic-unit-v1.json"
+    }
+  ],
+  "copy": "unchanged exact committed Git bytes; owner working CRLF hashes not relabelled",
+  "limits": "offline protocols/synthetic price only; no actual SDK/provider/account/paid authorization"
+}
