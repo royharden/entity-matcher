@@ -9,3 +9,32 @@ section { margin-top: 40px; border: 1px solid #dbe2ec; border-radius: 18px; back
 h2 { margin-top: 22px; font-size: 1.35rem; }
 section p, li { line-height: 1.6; }
 ol { padding-left: 22px; color: #52637c; }
+* { box-sizing: border-box; }
+main { max-width: 1100px; margin: 4vh auto; }
+section { margin-top: 24px; }
+.open-panel { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px 24px; }
+.open-panel .muted { grid-column: 1 / -1; margin: 0; }
+.file-button, button { border: 1px solid #b9c8e7; border-radius: 8px; padding: 12px 18px; color: #183a76; background: #edf2ff; font: inherit; cursor: pointer; }
+.file-button { position: relative; overflow: hidden; font-weight: 600; }
+.file-button input { position: absolute; inset: 0; opacity: 0; width: 100%; cursor: pointer; }
+.file-button:focus-within, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid #4b77d1; outline-offset: 3px; }
+button:disabled { opacity: .4; cursor: default; }
+.muted, small { color: #52637c; line-height: 1.5; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.stats > div { border-left: 3px solid #d5e0f6; padding-left: 14px; }
+.stat { display: block; color: #1e3864; font-size: 1.8rem; font-weight: 650; }
+small { display: block; }
+.notice { background: #fff7dc; border-radius: 8px; padding: 12px; }
+.error { background: #fff1f0; color: #8e2424; border: 1px solid #edbaba; padding: 16px; border-radius: 8px; }
+.toolbar, nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.toolbar label { display: grid; gap: 6px; color: #52637c; }
+input[type=search] { font: inherit; padding: 10px; border: 1px solid #b9c8e7; border-radius: 7px; width: min(300px, 100%); }
+.candidate { border-top: 1px solid #dbe2ec; padding: 20px 0; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.catalog { font-size: .8rem; color: #52637c; }
+h3 { font-size: 1rem; margin: 8px 0 14px; }
+.identity, code { white-space: pre-wrap; overflow-wrap: anywhere; unicode-bidi: plaintext; }
+code { display: block; font-size: .75rem; margin: 8px 0; color: #52637c; }
+summary { font-size: .85rem; cursor: pointer; }
+nav { padding-top: 20px; border-top: 1px solid #dbe2ec; }
+@media (max-width: 650px) { main { padding: 16px; } section { padding: 20px; } .open-panel { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } .pair { grid-template-columns: 1fr; gap: 14px; } }
