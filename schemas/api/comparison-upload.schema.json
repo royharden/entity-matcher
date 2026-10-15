@@ -1,0 +1,101 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "aliases_base64": {
+      "anyOf": [
+        {
+          "maxLength": 2097152,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Aliases Base64"
+    },
+    "catalog_a_base64": {
+      "maxLength": 20971520,
+      "title": "Catalog A Base64",
+      "type": "string"
+    },
+    "catalog_b_base64": {
+      "maxLength": 20971520,
+      "title": "Catalog B Base64",
+      "type": "string"
+    },
+    "dataset_a": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Dataset A",
+      "type": "string"
+    },
+    "dataset_b": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Dataset B",
+      "type": "string"
+    },
+    "encoding_a": {
+      "anyOf": [
+        {
+          "enum": [
+            "utf-8",
+            "utf-8-sig",
+            "utf-16",
+            "cp1252",
+            "latin-1"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Encoding A"
+    },
+    "encoding_b": {
+      "anyOf": [
+        {
+          "enum": [
+            "utf-8",
+            "utf-8-sig",
+            "utf-16",
+            "cp1252",
+            "latin-1"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Encoding B"
+    },
+    "method": {
+      "default": "rules",
+      "enum": [
+        "rules",
+        "fuzzy"
+      ],
+      "title": "Method",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema_version",
+    "dataset_a",
+    "dataset_b",
+    "catalog_a_base64",
+    "catalog_b_base64"
+  ],
+  "title": "ComparisonUpload",
+  "type": "object"
+}
