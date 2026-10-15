@@ -1066,7 +1066,7 @@ class Ledger:
             if operation["mode"] != "offline":
                 raise LedgerError("offline_dispatch")
             submitted, root = _dump(context), json.loads(operation["context"])
-            for field in ["child_id", "span_id", "parent_span_id"]:
+            for field in ["child_id", "span_id", "parent_span_id", "purpose"]:
                 root.pop(field, None)
                 submitted.pop(field, None)
             if root != submitted:
@@ -1077,10 +1077,10 @@ class Ledger:
             ).fetchone()
             if child is None or child["state"] != "pending" or child["used"] != 0:
                 raise LedgerError("completion_conflict")
-            if (
-                request.bound_evidence_sha256
-                != json.loads(child["definition"])["bound_evidence_sha256"]
-            ):
+            definition = json.loads(child["definition"])
+            if context.purpose != definition["purpose"]:
+                raise LedgerError("context_mismatch")
+            if request.bound_evidence_sha256 != definition["bound_evidence_sha256"]:
                 raise LedgerError("bound_mismatch")
             self.connection.execute(
                 "UPDATE children SET state='complete',remaining=0,completion_proof=? "

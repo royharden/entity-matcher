@@ -1,0 +1,236 @@
+{
+  "owner": "BOLT-R01 S3 offline purpose fix",
+  "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+  "source_tree": "2887e018acff384fc1a872080f399c2aeb44c5e0",
+  "publication_sha256": "c18c5a2b52a96d408985734422a10dbb48b4255a00b57229f3832add320969a0",
+  "prior_adoption": "VENDORED/S3-offline/SOURCE.json preserved unchanged; old proofs retain old pins",
+  "entries": [
+    {
+      "path": "src/llm_router_eval/shared/__init__.py",
+      "git_blob_oid": "d54c1da1c6df701267a3ccc931aca3852992f333",
+      "committed_blob_sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8",
+      "bytes": 72,
+      "working_checked_sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/__init__.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/README.md",
+      "git_blob_oid": "4eb6cce7d1bc853da62db8ce048247375caf0916",
+      "committed_blob_sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50",
+      "bytes": 7634,
+      "working_checked_sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/callledger/README.md"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/__init__.py",
+      "git_blob_oid": "6bb50990aee74ddaffdfd45933d87eb53d040be8",
+      "committed_blob_sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571",
+      "bytes": 234,
+      "working_checked_sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/callledger/__init__.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/ledger.py",
+      "git_blob_oid": "e3760ba9efbb6cf140a03c412d66b7ff888c7f1c",
+      "committed_blob_sha256": "ca38e0776e8b13d95e6ac31087431d45b8c984a40a33f8f8212d7c7bcf16eecb",
+      "bytes": 49969,
+      "working_checked_sha256": "c6435e51fd31cbad776279f5a94a5b38224d42f7555d9b49bedfe23bd7ffe3e2",
+      "working_crlf_sequences": 1176,
+      "normalization": "CRLF -> LF only",
+      "target": "src/entity_matcher/shared/callledger/ledger.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/models.py",
+      "git_blob_oid": "ad215ff2bbe06472295b06b66487f526cde59eb9",
+      "committed_blob_sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7",
+      "bytes": 12351,
+      "working_checked_sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/callledger/models.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/pricing.py",
+      "git_blob_oid": "f8d63558e6238f3cabaf2c52611ab3e632dd29c9",
+      "committed_blob_sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74",
+      "bytes": 9444,
+      "working_checked_sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/callledger/pricing.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/callledger/projection.py",
+      "git_blob_oid": "7d20500102b07471caec6362f3b71099ff92df10",
+      "committed_blob_sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69",
+      "bytes": 1310,
+      "working_checked_sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/callledger/projection.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/__init__.py",
+      "git_blob_oid": "67b42aa73e0e5cfa72f83c0669198f354ca4ed4a",
+      "committed_blob_sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f",
+      "bytes": 450,
+      "working_checked_sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/providers/__init__.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/adapters.py",
+      "git_blob_oid": "6baa3035f8bd7a04e54281833ff2fd144ed3f02b",
+      "committed_blob_sha256": "0f04a7f3231c2a22c36541b9cdaeb53214899d4da111f264eab73278847a3023",
+      "bytes": 15650,
+      "working_checked_sha256": "69c983a43a9dbf1cd41d25f5fd2fb35d24663a6924e940d50473beac2def713d",
+      "working_crlf_sequences": 410,
+      "normalization": "CRLF -> LF only",
+      "target": "src/entity_matcher/shared/providers/adapters.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/captures.py",
+      "git_blob_oid": "a632ff56ae51d0a416c0d08bf3a2090aeddfcbe8",
+      "committed_blob_sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00",
+      "bytes": 7673,
+      "working_checked_sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/providers/captures.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/controller.py",
+      "git_blob_oid": "a82937f5c363b5b069b918c490e8f385e5e65c52",
+      "committed_blob_sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac",
+      "bytes": 28270,
+      "working_checked_sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/providers/controller.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/images.py",
+      "git_blob_oid": "9ff512f336a219cb7b4dedad400b523b4de1447e",
+      "committed_blob_sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13",
+      "bytes": 3614,
+      "working_checked_sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/providers/images.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/models.py",
+      "git_blob_oid": "a2c2f478b881e1d172085355f9ee347bba919f9f",
+      "committed_blob_sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2",
+      "bytes": 18364,
+      "working_checked_sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/providers/models.py"
+    },
+    {
+      "path": "src/llm_router_eval/shared/providers/schema.py",
+      "git_blob_oid": "0d84ca157fa6bbd1fac3b7cbc0aba75751f552c3",
+      "committed_blob_sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391",
+      "bytes": 5605,
+      "working_checked_sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "src/entity_matcher/shared/providers/schema.py"
+    },
+    {
+      "path": "LICENSE",
+      "git_blob_oid": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "committed_blob_sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "bytes": 1067,
+      "working_checked_sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "VENDORED/S3-purpose-fix/LICENSE"
+    },
+    {
+      "path": "tests/callledger/conftest.py",
+      "git_blob_oid": "a98d1f4c0921f1fa6d6ec1cdcc4090bd5e3daf2c",
+      "committed_blob_sha256": "28e43e5bf02fee49f0f6b33b17f80ba21d0223c6cd16de03bcb5ee2c3e605c1e",
+      "bytes": 6894,
+      "working_checked_sha256": "28e43e5bf02fee49f0f6b33b17f80ba21d0223c6cd16de03bcb5ee2c3e605c1e",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "outer_public_example:callledger/conftest.py"
+    },
+    {
+      "path": "tests/callledger/test_child_purpose_reuse.py",
+      "git_blob_oid": "c16cb1027d16cc63ebb800dfcbac094196f825af",
+      "committed_blob_sha256": "3b791b254c6b0cde835c1c1ae0fe6c983ba6e70911bb5a974ec5d2715b4593ba",
+      "bytes": 4026,
+      "working_checked_sha256": "3b791b254c6b0cde835c1c1ae0fe6c983ba6e70911bb5a974ec5d2715b4593ba",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "outer_public_example:callledger/test_child_purpose_reuse.py"
+    },
+    {
+      "path": "tests/providers/conftest.py",
+      "git_blob_oid": "b6755a1acadb3b0ebafc7ba5e3d8c02cb59c2b3e",
+      "committed_blob_sha256": "b9dd0c50f8c8d07a4fc5c4e8e3c7b6740ef6ea405bf53dcee31ddbff26f64125",
+      "bytes": 13452,
+      "working_checked_sha256": "b9dd0c50f8c8d07a4fc5c4e8e3c7b6740ef6ea405bf53dcee31ddbff26f64125",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "outer_public_example:providers/conftest.py"
+    },
+    {
+      "path": "tests/providers/test_child_purpose_controller.py",
+      "git_blob_oid": "a020658c1abc113bef66e50676544ad0f3e7ba3a",
+      "committed_blob_sha256": "5fab62021f0d4cea121994c39b5f9fd3930fc3f17594d49f16205c3987e8fcad",
+      "bytes": 5481,
+      "working_checked_sha256": "5fab62021f0d4cea121994c39b5f9fd3930fc3f17594d49f16205c3987e8fcad",
+      "working_crlf_sequences": 0,
+      "normalization": "none",
+      "target": "outer_public_example:providers/test_child_purpose_controller.py"
+    }
+  ],
+  "changed_core": [
+    "src/entity_matcher/shared/callledger/ledger.py"
+  ],
+  "unchanged_core": 13,
+  "copy": "exact committed LF Git bytes; no model/controller forks or SDK calls",
+  "limits": "Only mock/strict replay/injected simulation; no SDK/live/auth/token/image billing/genuine capture/corpus/human/quality or finalapp verdict. No optional24file rubric/scorer closure, unlisted oldowner assets/dirtywork/lanes/Gold/heldout/generator/transcripts/credentials. Existing previouslygranted c7 conformance assets unchanged remain separatelyavailable; no new full386consumerdenominator.",
+  "conformance_adaptation": {
+    "scope": "only literal package namespace adaptation",
+    "files": [
+      {
+        "source_path": "tests/callledger/conftest.py",
+        "target": "tests/purpose/callledger/conftest.py",
+        "source_sha256": "28e43e5bf02fee49f0f6b33b17f80ba21d0223c6cd16de03bcb5ee2c3e605c1e",
+        "adapted_sha256": "fe6467d938198d631b5bb0dae8747049b39bc39c630e5ea4aaa93e06d9ad840b"
+      },
+      {
+        "source_path": "tests/callledger/test_child_purpose_reuse.py",
+        "target": "tests/purpose/callledger/test_child_purpose_reuse.py",
+        "source_sha256": "3b791b254c6b0cde835c1c1ae0fe6c983ba6e70911bb5a974ec5d2715b4593ba",
+        "adapted_sha256": "7afa932da57406a6a951f982c4562fc8f91455c3622d69996babddb0dd5bb5ff"
+      },
+      {
+        "source_path": "tests/providers/conftest.py",
+        "target": "tests/purpose/providers/conftest.py",
+        "source_sha256": "b9dd0c50f8c8d07a4fc5c4e8e3c7b6740ef6ea405bf53dcee31ddbff26f64125",
+        "adapted_sha256": "59f5af00fa7906ed0aed77f7c92e54e39af8359b12803ed6ab0eb5d807f942ee"
+      },
+      {
+        "source_path": "tests/providers/test_child_purpose_controller.py",
+        "target": "tests/purpose/providers/test_child_purpose_controller.py",
+        "source_sha256": "5fab62021f0d4cea121994c39b5f9fd3930fc3f17594d49f16205c3987e8fcad",
+        "adapted_sha256": "88ba8c2ff31edba42d6480975138c0bec914ae6ccfad7024e779acba4764067d"
+      }
+    ],
+    "assertions_math_counts_case_ids": "unchanged",
+    "diff_sha256": "41f875eaeaf01bc934d8656bc28877d2bfcf8788204735172536313df7e0a13d"
+  }
+}
