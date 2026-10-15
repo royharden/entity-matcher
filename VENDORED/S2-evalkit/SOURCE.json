@@ -1,0 +1,142 @@
+{
+  "owner_component": "BOLT-R01 S2 evalkit",
+  "source_commit": "249262839c4247ff37cc5a75c6a89a422738c759",
+  "source_tree": "e60e8ba5efef185a6706c5d266ce3a1ccad5c553",
+  "publication_sha256": "28dbf310102f0bf316525c4945d474b9bca8d7276a9753dd72cfbb824c4d2af3",
+  "licence": "MIT; original notice retained",
+  "files": [
+    {
+      "path": "src/rfr/shared/evalkit/README.md",
+      "sha256": "1308c679caa5413229ba41de0e6fc4f9cdfd8d76fcb66c0cb1aa4597d2dade94",
+      "git_blob": "e1c3b2ab26460a5245708feba9d011f6ea35ed60",
+      "bytes": 4297,
+      "target": "src/entity_matcher/shared/evalkit/README.md"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/__init__.py",
+      "sha256": "3017cebcf1f80d410a61712cd8207c1803e09954936ce33238d886760683843e",
+      "git_blob": "c0401907d6b0cb0491051cb4732385a1e78aaf3c",
+      "bytes": 90,
+      "target": "src/entity_matcher/shared/evalkit/__init__.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/corpus.py",
+      "sha256": "427ade409f4fb83b59a2d9952c890cb830096af948e1dc9d393a8aef47c23fa0",
+      "git_blob": "a6aea0bbbed151bc550200183d675d63d1aeed04",
+      "bytes": 6793,
+      "target": "src/entity_matcher/shared/evalkit/corpus.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/identity.py",
+      "sha256": "5897c07d4b0f5d55dd8fee8cb74a325caaebc03b9e70bbf9c426c431d968f1b2",
+      "git_blob": "d4ed3a66d9f39ce948cc4d992617282c68a16484",
+      "bytes": 2419,
+      "target": "src/entity_matcher/shared/evalkit/identity.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/interfaces.py",
+      "sha256": "d23bc8be5188a968388272580b259ad4af4b1a4cbf393be52d7933514235ed9d",
+      "git_blob": "b90636c575f743eb5e93e13697effa40e0a858fb",
+      "bytes": 2041,
+      "target": "src/entity_matcher/shared/evalkit/interfaces.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/models.py",
+      "sha256": "b18613383987a24569e7a9a133b2c212d858c2cf9ee147720b350c06126596c4",
+      "git_blob": "43bcb7314dc6085a532765ff68725165f44dbc56",
+      "bytes": 19004,
+      "target": "src/entity_matcher/shared/evalkit/models.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/reporting.py",
+      "sha256": "96d439870fe13d5c2ff5064d34eeb66fd5a96cf86fa5e5983ba243a6279aa283",
+      "git_blob": "e6c46c9226cd4b80a732d0ec16a04e0a1e5b56f9",
+      "bytes": 6018,
+      "target": "src/entity_matcher/shared/evalkit/reporting.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/resampling.py",
+      "sha256": "005c21b6d9f113db22132f0a660c3a2713e5aeaffb4dbb3c4c5349d66c194619",
+      "git_blob": "e22ebf62aebac01a02e3a9be842a8584c68caa20",
+      "bytes": 6851,
+      "target": "src/entity_matcher/shared/evalkit/resampling.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/runner.py",
+      "sha256": "b3a9078cf3265d750296907572dfeb66de780c01028b715cfdafb39dbad7bccb",
+      "git_blob": "3a4871fed7ac5a5fe81b0bf6a5f3fe45fb27967c",
+      "bytes": 9780,
+      "target": "src/entity_matcher/shared/evalkit/runner.py"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/schema.json",
+      "sha256": "b44b9f4cea1b90d6524ddf9aa56327667a92340810b19000bb8d47702695ffb7",
+      "git_blob": "cf5c8740da190f5a603eb4187b382ebb05f3e2f2",
+      "bytes": 68367,
+      "target": "src/entity_matcher/shared/evalkit/schema.json"
+    },
+    {
+      "path": "src/rfr/shared/evalkit/statistics.py",
+      "sha256": "9e9ec5e9ba86489c8938a87bd064debbedc143126952959729ab46fd624784dc",
+      "git_blob": "529b70140f40af2ae60a115a8903e68827258efe",
+      "bytes": 8370,
+      "target": "src/entity_matcher/shared/evalkit/statistics.py"
+    }
+  ],
+  "copy": "unchanged exact committed Git bytes, relative imports/schema preserved",
+  "limits": "generic types/math/runner/group-resampling only; no actual independent/human/rights/history/domain/live/quality acceptance",
+  "conformance_adaptation": {
+    "source": "exact nine published synthetic controls at same source commit",
+    "scope": "literal package/root mappings; detached import guards also block consumer namespace",
+    "assertions_math_case_ids_counts": "unchanged",
+    "files": [
+      {
+        "name": "conftest.py",
+        "source_sha256": "fa889c24ed0c5599792de4f9a46dee7d09d8e9261ead18804bc1175b32507bff",
+        "adapted_sha256": "fa889c24ed0c5599792de4f9a46dee7d09d8e9261ead18804bc1175b32507bff"
+      },
+      {
+        "name": "test_corpus.py",
+        "source_sha256": "c6127c483acb8c6fc25887bd677243b5297e275941f4fed461d659b6bfad0d18",
+        "adapted_sha256": "17efad7020c2c1c64fae5242ecfeae9e3768655de9ae7b6c0cbda2bf22d16c49"
+      },
+      {
+        "name": "test_evalkit_detached.py",
+        "source_sha256": "9ce522799442e9acdc1a17b946ce4601205094df146725d27e20ea1eae23bcf1",
+        "adapted_sha256": "51ac481f3cb0a63aa4d31ee9aafa7ff52da5fb9d12764201c677ade49ce88465"
+      },
+      {
+        "name": "test_evalkit_moved_suite.py",
+        "source_sha256": "1ea3f864073ed745001fe00c9996f50d0f2eaaa665d1a5bdb92f6a4a6b84f2ea",
+        "adapted_sha256": "1025b6b8bc9f1133015cba7d5873b1dc165fd28bac5f92632988bcdf7907cc64"
+      },
+      {
+        "name": "test_heldout.py",
+        "source_sha256": "e80a02fc8e1ff5e81b007de3d87534eb36b0001dadf2251a3de0a246360e0528",
+        "adapted_sha256": "7a023f2385422f2241c5e9ef08c5208e910ecc921458add9e19f3eca43474de3"
+      },
+      {
+        "name": "test_reporting.py",
+        "source_sha256": "a5b0a537c7b0593fa7bab210d8e9e79c9aba6d462dfb3895f211d30293aa44b9",
+        "adapted_sha256": "ab7e0cc5c7ce79825cddd2ddf56f41b740cf6c5da18c5febcbfdcb7c192f5a5d"
+      },
+      {
+        "name": "test_resampling.py",
+        "source_sha256": "64739c9b0b274542717a19285dd27968442d782979f138345c4e113861d54cef",
+        "adapted_sha256": "73fb6d4dc16bcb9552bfaf09c8a761cfa434fc3319af8b644c1a4c1c2cbe2b67"
+      },
+      {
+        "name": "test_runner.py",
+        "source_sha256": "365b553de35064978cb488049627cd09cf9de2b4c3adc59502c97244e8877a03",
+        "adapted_sha256": "a784279e6d645da2e66e8455f4f560863336c45f5c48c43776cdf6eaf404a665"
+      },
+      {
+        "name": "test_statistics.py",
+        "source_sha256": "c786947db47453f532a63894679d7b57886e4a2a5bdd3db6e03e582ae343ab65",
+        "adapted_sha256": "16d4dab9235357dff3cbf98cbd355657c83245877025be700348d594a12dec0f"
+      }
+    ],
+    "meaning": "synthetic portable implementation controls, not actual Gold/heldout/human/domain/quality results",
+    "formatting": "line wraps required by longer consumer namespace only"
+  }
+}
