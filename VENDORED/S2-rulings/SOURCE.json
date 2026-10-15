@@ -1,0 +1,67 @@
+{
+  "owner_component": "BOLT-R01 S2 rulings",
+  "source_commit": "455d73c6efe283fdf3919267532de7ad5d39924b",
+  "source_tree": "100dc262ed0bd53d52e4a508cfc22aabecbb5aaa",
+  "publication_sha256": "afe399129b7f74fcf4c3f540c5945da3875dbd8618a7b345fdff382d4a014132",
+  "licence": "MIT; original notice retained",
+  "files": [
+    {
+      "path": "src/rfr/shared/rulings/__init__.py",
+      "sha256": "cc32949ed13b7ea5d77577079441d19e3cfd9b8bfe074db87dff056de3d88a6d",
+      "git_blob": "15bccaada7b32d1933ac59d9113a5c215de1b0d6",
+      "bytes": 85,
+      "target": "src/entity_matcher/shared/rulings/__init__.py"
+    },
+    {
+      "path": "src/rfr/shared/rulings/models.py",
+      "sha256": "4ab1b6edf1e5009d7ffe9559dae480471df7843b8216b7deb8ab961ce47a3b4c",
+      "git_blob": "c887635f97589fe5ed8ca761b1e69343d490e43d",
+      "bytes": 7163,
+      "target": "src/entity_matcher/shared/rulings/models.py"
+    },
+    {
+      "path": "src/rfr/shared/rulings/identity.py",
+      "sha256": "da5df25714f8bbc4b8fe7a1f2ee4d780f1259d7c593164c4bd658234262673c0",
+      "git_blob": "97205db3893fae3a52110c678c326e0dd1c73a49",
+      "bytes": 1836,
+      "target": "src/entity_matcher/shared/rulings/identity.py"
+    },
+    {
+      "path": "src/rfr/shared/rulings/interfaces.py",
+      "sha256": "785cd755d8f51b8bd8432d5f8b6712a2fa95f4187f610928ddcbe15e5e0ede6a",
+      "git_blob": "176e3c01ca5984ef185e4bd8096947df156de578",
+      "bytes": 925,
+      "target": "src/entity_matcher/shared/rulings/interfaces.py"
+    },
+    {
+      "path": "src/rfr/shared/rulings/store.py",
+      "sha256": "8586552e099bf1eecc8bb52c5b2a51bf2ca0880a26186587034b63b910402b57",
+      "git_blob": "cee844ddfb7cd2b48e2ef1288de2e8887f3d5df7",
+      "bytes": 15394,
+      "target": "src/entity_matcher/shared/rulings/store.py"
+    },
+    {
+      "path": "src/rfr/shared/rulings/projection.py",
+      "sha256": "b7d76d4f5b50f56a3973eb6c49fa77130b398f38461d74040d2866630a5381e7",
+      "git_blob": "ab208c1a66af67e67352dd9ffb0ebca1c818a3e0",
+      "bytes": 6162,
+      "target": "src/entity_matcher/shared/rulings/projection.py"
+    },
+    {
+      "path": "src/rfr/shared/rulings/README.md",
+      "sha256": "c5502679923c0da5c92f5890c7b1a9e52dc9aee45250cd67c501b365351685f0",
+      "git_blob": "7ec932d25a5376f65a1aa557aab8a089150ec28d",
+      "bytes": 3441,
+      "target": "src/entity_matcher/shared/rulings/README.md"
+    },
+    {
+      "path": "src/rfr/shared/rulings/schema.json",
+      "sha256": "7c2397d79846fbb3ca51e95dd50eda5174f9fe2d52b0640cd79bf356242b124e",
+      "git_blob": "f2df8d43127224feff49228f1178aa1d412aa8c7",
+      "bytes": 35891,
+      "target": "src/entity_matcher/shared/rulings/schema.json"
+    }
+  ],
+  "copy": "unchanged committed Git blobs; relative imports/schema preserved",
+  "scope": "generic journal/replay/CAS/projection; consumer adapters and quality acceptance separate"
+}
