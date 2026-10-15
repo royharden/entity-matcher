@@ -1,10 +1,10 @@
 # Entity Matcher
 
-Development is paused. See [the current checkpoint](DEVELOPMENT-STATUS.md) for finished work, work in progress, outstanding tasks and lessons.
+See [the current checkpoint](DEVELOPMENT-STATUS.md) for implemented behavior, verification gaps, outstanding tasks and lessons.
 
 Compare two product catalogs and record provisional review decisions locally. CSV inputs remain unchanged; decisions use a separate JSONL journal. Genuine human admission and measured match quality remain unfinished.
 
-The CLI validates catalogs, retrieves bounded candidates, exports raw-field review packets, applies provisional drafts, replays decisions and exports display CSVs. The React viewer source supports packet inspection, decision drafting and file import/download. Browser behavior and its current production build remain unverified. Fuzzy/rules scoring requires RapidFuzz and reports unavailable when absent; unfitted probabilities stay unavailable and proposals stay in review.
+The CLI validates catalogs, retrieves bounded candidates, exports raw-field review packets, applies provisional drafts, replays decisions and exports display CSVs. The React viewer source supports packet inspection, decision drafting and file import/download. Its local production build passes; browser behavior remains unverified. Fuzzy/rules scoring requires RapidFuzz and reports unavailable when absent; unfitted probabilities stay unavailable and proposals stay in review.
 
 ## Keyless setup
 
@@ -13,7 +13,7 @@ From the repository root, use Python 3.12 with uv. The smallest runnable workflo
     uv sync --frozen
     uv run python scripts/demo.py --out .local/demo-first
 
-Use a new output directory for each run; existing directories refuse without overwriting. The demo authors two tiny synthetic catalogs, calls the actual CLI, appends an explicitly automated provisional decision, retries the same operation, retracts it and exports CSVs. It then edits a separate source copy and demonstrates a refused stale-packet apply with unchanged journal bytes. RESULT.json records actual exits, input preservation, signal availability and artifact hashes. This is a workflow demonstration, not a person review or accuracy evaluation.
+Use a new output directory for each run; existing directories refuse without overwriting. The demo authors two tiny synthetic catalogs, calls the actual CLI, appends an explicitly automated provisional decision, retries the same operation, retracts it and exports CSVs. Retrying the old decision after retraction leaves the tombstone effective. Edited source and malformed CSV both refuse an apply with unchanged journal bytes; malformed validation also reports its finding. RESULT.json records actual exits, input preservation, signal availability and artifact hashes. This is a workflow demonstration, not a person review or accuracy evaluation.
 
 The demo leaves current-packet.json, decisions/receipts, pairs.csv, components.csv and its separate journal under the chosen directory. Missing RapidFuzz is reported in the result; no replacement scorer or model call is used. All decisions remain agent_provisional and cannot create verified human match components.
 
@@ -28,7 +28,7 @@ Development checks and the optional frontend use Node 22.12 or newer:
     npm run test:web
     npm run build
 
-Python 3.12 and Node 24 are the local tool versions. The no-argument Python command reports actual provisional capabilities, with human admission disabled. Node transport tests include real Python decoder/journal interoperability and therefore need the Python environment. The frontend build target is dist/; build/browser verification remains pending. These commands start no application listener or provider call.
+Python 3.12 and Node 24 are the local tool versions. The no-argument Python command reports actual provisional capabilities, with human admission disabled. Node transport tests include real Python decoder/journal interoperability and therefore need the Python environment. The frontend build target is dist/; local typecheck and Vite production compilation pass. Browser verification remains pending. These commands start no application listener or provider call.
 
 Inspect explicitly selected local files with:
 
@@ -41,7 +41,7 @@ For the frozen synthetic demo, save a report and open it with **Choose report** 
 
     uv run python -m entity_matcher candidates fixtures/independent/demo/catalog-A.csv fixtures/independent/demo/catalog-B.csv --aliases fixtures/independent/brand-aliases.csv --max-output 100 > candidate-preview.json
 
-The viewer shows reported counts, caps, omissions and paged candidate identities. Search covers the imported preview. Candidate reports and review pages are inspection-only; ruling packets enable provisional local drafts. File import does not establish source freshness or authority. Browser interaction and the current viewer's production build still require verification.
+The viewer shows reported counts, caps, omissions and paged candidate identities. Search covers the imported preview. Candidate reports and review pages are inspection-only; ruling packets enable provisional local drafts. File import does not establish source freshness or authority. Browser interaction still requires verification.
 
 To include aligned raw fields, machine proposals and field-evidence metadata, export a review page:
 

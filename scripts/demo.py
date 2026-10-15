@@ -1,4 +1,4 @@
-"""Run a tiny automated provisional CLI workflow and a refused stale-source apply."""
+"""Run a tiny provisional CLI workflow with tombstone and invalid-input refusals."""
 
 import argparse
 import csv
@@ -97,8 +97,14 @@ def run(output: Path):
         [*common, "--packet", str(undo_packet_path), "--draft", str(undo_draft_path)],
         "retraction-receipt.json",
     )
+    after_retraction = (journal / "rulings.jsonl").read_bytes()
+    old_retry = json.loads(cli("apply-rulings", apply, "retry-after-retraction.json"))
+    assert old_retry["receipts"][0]["historical"]
+    assert (journal / "rulings.jsonl").read_bytes() == after_retraction
     final_path = output / "current-packet.json"
     final = decode_packet(cli("packet", common, final_path.name))
+    assert final.entries[0].observed_head_event_id is not None
+    assert final.entries[0].retractable_event_id is None
     cli("export", common, "pairs.csv")
     cli("export", [*common, "--view", "components"], "components.csv")
     refused_draft = output / "refused-decisions.json"
@@ -116,6 +122,32 @@ def run(output: Path):
     )
     assert refused["issue_code"] == "packet_source_changed"
     assert (journal / "rulings.jsonl").read_bytes() == before_refusal
+    malformed = output / "catalog-A-malformed.csv"
+    malformed_bytes = b'id,name,brand,size,unit,price,category,description\n"unterminated'
+    malformed.write_bytes(malformed_bytes)
+    validation = json.loads(
+        cli("validate", [str(malformed), "--dataset", "a"], "malformed-validation.json", expected=2)
+    )
+    assert not validation["accepted"] and validation["accepted_record_count"] == 0
+    assert any(issue["code"] == "malformed_csv" for issue in validation["issues"])
+    malformed_refusal = json.loads(
+        cli(
+            "apply-rulings",
+            [
+                str(malformed),
+                *common[1:],
+                "--packet",
+                str(final_path),
+                "--draft",
+                str(refused_draft),
+            ],
+            "malformed-apply-receipt.json",
+            expected=2,
+        )
+    )
+    assert malformed_refusal["issue_code"] == "catalog_validation_failed"
+    assert (journal / "rulings.jsonl").read_bytes() == before_refusal
+    assert malformed.read_bytes() == malformed_bytes
     assert (a.read_bytes(), b.read_bytes()) == (left, right)
     result = {
         "status": "provisional_demo_complete",
@@ -125,8 +157,12 @@ def run(output: Path):
         "human_admission": False,
         "normal": first["status"],
         "retry_historical": retry["receipts"][0]["historical"],
+        "retry_after_retraction_historical": old_retry["receipts"][0]["historical"],
+        "tombstone_preserved_after_retry": True,
         "refusal": refused["issue_code"],
         "refusal_preserved_journal_bytes": True,
+        "malformed_refusal": malformed_refusal["issue_code"],
+        "malformed_refusal_preserved_journal_bytes": True,
         "raw_sources_unchanged": True,
         "raw_signal_status": signal.status,
         "raw_signal_issues": list(signal.issue_codes),

@@ -31,12 +31,21 @@ def test_actual_demo_normal_retry_tombstone_export_and_stale_refusal(tmp_path):
         report["refusal"] == "packet_source_changed" and report["refusal_preserved_journal_bytes"]
     )
     assert report["raw_sources_unchanged"] and not report["human_admission"]
+    assert report["retry_after_retraction_historical"] and report["tombstone_preserved_after_retry"]
+    assert report["malformed_refusal"] == "catalog_validation_failed"
+    assert report["malformed_refusal_preserved_journal_bytes"]
     assert report["probability"] is None
-    assert [step["exit"] for step in report["steps"]] == [0] * 8 + [2]
+    assert [step["exit"] for step in report["steps"]] == [0] * 9 + [2] * 3
     assert json.loads((output / "RESULT.json").read_bytes()) == report
     events = JournalStore(output / "journal").replay().events
     assert len(events) == 2 and events[1].payload.action == "retract"
     assert all(event.actor_provenance == "agent_provisional" for event in events)
+    current = json.loads((output / "current-packet.json").read_bytes())
+    assert current["entries"][0]["observed_head_event_id"] == events[1].event_id
+    assert current["entries"][0]["retractable_event_id"] is None
+    validation = json.loads((output / "malformed-validation.json").read_bytes())
+    assert not validation["accepted"] and validation["accepted_record_count"] == 0
+    assert [issue["code"] for issue in validation["issues"]] == ["malformed_csv"]
     rows = list(csv.DictReader(io.StringIO((output / "components.csv").read_text(), newline="")))
     assert len(rows) == 2 and all(row["component_state"] == "'single_record" for row in rows)
 
