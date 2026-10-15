@@ -1,0 +1,62 @@
+{
+  "owner_component": "BOLT-R01 S5 cited supplied-text memory",
+  "source_commit": "61c15cd05041c9c9360ff4e727a46f6896dc13c3",
+  "source_tree": "d5fcbc8338e3b7e6285cfe1c69b50c006725a58c",
+  "publication_pins": [
+    [
+      "S5-cited-memory-001.json",
+      "90c14efd8e4bc07ec27415263a4d3b22343cacd7b3a6ca41a5d8741b4719e5df"
+    ],
+    [
+      "S5-test-helper-supplement-001.json",
+      "3edc4be3221d091468abf7ba8b3bc973a57dfcc0c0ee67316ea705fb93bcf7b7"
+    ]
+  ],
+  "licence": "MIT; original notice retained",
+  "files": [
+    {
+      "path": "src/changelog_advisor/shared/cited/__init__.py",
+      "sha256": "b4de107dfa4bdf5840797e236fd00e23e268268875b3bfecfe39141462106b19",
+      "git_blob": "b4564484900407c47220008c615f5b709b4373b9",
+      "bytes": 545,
+      "target": "src/entity_matcher/shared/cited/__init__.py"
+    },
+    {
+      "path": "src/changelog_advisor/shared/cited/models.py",
+      "sha256": "9682555a0d988b2e07dc40ac553ff18dc23c6ff389b72c7d93fd99bc81b2dab1",
+      "git_blob": "54ea8e9adb4e6e964eba5375638cf20f96bd86ac",
+      "bytes": 20095,
+      "target": "src/entity_matcher/shared/cited/models.py"
+    },
+    {
+      "path": "src/changelog_advisor/shared/cited/registry.py",
+      "sha256": "83277f922b9975ded0b12eb09566278aadaa64f03912e765d7864dedea124d7c",
+      "git_blob": "733347fcbcb75d598767288d88969eb7b75c3d38",
+      "bytes": 3837,
+      "target": "src/entity_matcher/shared/cited/registry.py"
+    },
+    {
+      "path": "src/changelog_advisor/shared/cited/schema.py",
+      "sha256": "0ba2c5de1caa81841e738fd15bc126b4f6cceacf62f033974691919187fe6d24",
+      "git_blob": "6cff940535898aae0c1957ac0e907b58e066f5ad",
+      "bytes": 1218,
+      "target": "src/entity_matcher/shared/cited/schema.py"
+    },
+    {
+      "path": "src/changelog_advisor/shared/cited/memory.py",
+      "sha256": "eb4eee4845ce8fc9a49ab1660e20823020ab389d986f576a06e202855bb6329a",
+      "git_blob": "b4e8123edf14c2385b1c1fa35c25538f4b159078",
+      "bytes": 15500,
+      "target": "src/entity_matcher/shared/cited/memory.py"
+    },
+    {
+      "path": "src/changelog_advisor/shared/cited/assessment.py",
+      "sha256": "3b9f89a6e69fc4183605f1a89ddb16a38454294284aeb7666e25b5b835092121",
+      "git_blob": "a0573cadc46eba032a7bca18dfaebe257f7f646f",
+      "bytes": 1720,
+      "target": "src/entity_matcher/shared/cited/assessment.py"
+    }
+  ],
+  "copy": "unchanged committed Git bytes; relative imports retained",
+  "scope": "supplied_text explicit install only; other source/profile adapters separate"
+}
