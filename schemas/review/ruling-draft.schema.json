@@ -1,0 +1,178 @@
+{
+  "$defs": {
+    "DecideOperation": {
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "maxLength": 36,
+          "minLength": 36,
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "pair_key": {
+          "pattern": "^pk1:[0-9a-f]{64}$",
+          "title": "Pair Key",
+          "type": "string"
+        },
+        "observed_head_event_id": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observed Head Event Id"
+        },
+        "at_utc": {
+          "maxLength": 40,
+          "title": "At Utc",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "maxLength": 4096,
+          "title": "Reason",
+          "type": "string"
+        },
+        "action": {
+          "const": "decide",
+          "title": "Action",
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "positive",
+            "negative",
+            "unsure"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id",
+        "pair_key",
+        "observed_head_event_id",
+        "at_utc",
+        "action",
+        "verdict"
+      ],
+      "title": "DecideOperation",
+      "type": "object"
+    },
+    "RetractOperation": {
+      "additionalProperties": false,
+      "properties": {
+        "operation_id": {
+          "maxLength": 36,
+          "minLength": 36,
+          "title": "Operation Id",
+          "type": "string"
+        },
+        "pair_key": {
+          "pattern": "^pk1:[0-9a-f]{64}$",
+          "title": "Pair Key",
+          "type": "string"
+        },
+        "observed_head_event_id": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observed Head Event Id"
+        },
+        "at_utc": {
+          "maxLength": 40,
+          "title": "At Utc",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "maxLength": 4096,
+          "title": "Reason",
+          "type": "string"
+        },
+        "action": {
+          "const": "retract",
+          "title": "Action",
+          "type": "string"
+        },
+        "target_event_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Target Event Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id",
+        "pair_key",
+        "observed_head_event_id",
+        "at_utc",
+        "action",
+        "target_event_id"
+      ],
+      "title": "RetractOperation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 1,
+      "maximum": 1,
+      "minimum": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "kind": {
+      "const": "product_ruling_draft",
+      "default": "product_ruling_draft",
+      "title": "Kind",
+      "type": "string"
+    },
+    "packet_id": {
+      "pattern": "^rp1:[0-9a-f]{64}$",
+      "title": "Packet Id",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "decide": "#/$defs/DecideOperation",
+            "retract": "#/$defs/RetractOperation"
+          },
+          "propertyName": "action"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecideOperation"
+          },
+          {
+            "$ref": "#/$defs/RetractOperation"
+          }
+        ]
+      },
+      "maxItems": 100,
+      "title": "Operations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "packet_id",
+    "operations"
+  ],
+  "title": "ProductRulingDraft",
+  "type": "object"
+}

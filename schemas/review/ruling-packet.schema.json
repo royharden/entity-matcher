@@ -1,0 +1,1523 @@
+{
+  "$defs": {
+    "ArtifactRef": {
+      "additionalProperties": false,
+      "description": "Logical reference only; no file opener or URL authority.",
+      "properties": {
+        "artifact_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Artifact Id",
+          "type": "string"
+        },
+        "artifact_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Artifact Sha256",
+          "type": "string"
+        },
+        "profile_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Profile Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "artifact_sha256",
+        "profile_id"
+      ],
+      "title": "ArtifactRef",
+      "type": "object"
+    },
+    "CalibrationEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "dev_manifest_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Dev Manifest Sha256",
+          "type": "string"
+        },
+        "config_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Config Sha256",
+          "type": "string"
+        },
+        "support_count": {
+          "minimum": 1,
+          "title": "Support Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dev_manifest_sha256",
+        "config_sha256",
+        "support_count"
+      ],
+      "title": "CalibrationEvidence",
+      "type": "object"
+    },
+    "CandidateOverview": {
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "const": "product-candidates-v1",
+          "title": "Profile",
+          "type": "string"
+        },
+        "n_a": {
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "N A",
+          "type": "integer"
+        },
+        "n_b": {
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "N B",
+          "type": "integer"
+        },
+        "possible_pairs": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Possible Pairs",
+          "type": "integer"
+        },
+        "b1_enumerated_unique": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "B1 Enumerated Unique",
+          "type": "integer"
+        },
+        "b2_enumerated_unique": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "B2 Enumerated Unique",
+          "type": "integer"
+        },
+        "union_enumerated_unique": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Union Enumerated Unique",
+          "type": "integer"
+        },
+        "uncapped_union_lower_bound": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Uncapped Union Lower Bound",
+          "type": "integer"
+        },
+        "uncapped_union_upper_bound": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Uncapped Union Upper Bound",
+          "type": "integer"
+        },
+        "uncapped_union_exact": {
+          "title": "Uncapped Union Exact",
+          "type": "boolean"
+        },
+        "retained": {
+          "maximum": 500000,
+          "minimum": 0,
+          "title": "Retained",
+          "type": "integer"
+        },
+        "per_a_cap_drops": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Per A Cap Drops",
+          "type": "integer"
+        },
+        "global_cap_drops": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Global Cap Drops",
+          "type": "integer"
+        },
+        "per_a_cap": {
+          "maximum": 50,
+          "minimum": 1,
+          "title": "Per A Cap",
+          "type": "integer"
+        },
+        "global_cap": {
+          "maximum": 500000,
+          "minimum": 1,
+          "title": "Global Cap",
+          "type": "integer"
+        },
+        "block_omission_count": {
+          "maximum": 100000000,
+          "minimum": 0,
+          "title": "Block Omission Count",
+          "type": "integer"
+        },
+        "token_keys_truncated_records": {
+          "maximum": 20000,
+          "minimum": 0,
+          "title": "Token Keys Truncated Records",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "profile",
+        "n_a",
+        "n_b",
+        "possible_pairs",
+        "b1_enumerated_unique",
+        "b2_enumerated_unique",
+        "union_enumerated_unique",
+        "uncapped_union_lower_bound",
+        "uncapped_union_upper_bound",
+        "uncapped_union_exact",
+        "retained",
+        "per_a_cap_drops",
+        "global_cap_drops",
+        "per_a_cap",
+        "global_cap",
+        "block_omission_count",
+        "token_keys_truncated_records"
+      ],
+      "title": "CandidateOverview",
+      "type": "object"
+    },
+    "CatalogStamp": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 256
+        },
+        "source_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Sha256",
+          "type": "string"
+        },
+        "encoding": {
+          "enum": [
+            "utf-8",
+            "utf-8-sig",
+            "utf-16",
+            "cp1252",
+            "latin-1"
+          ],
+          "title": "Encoding",
+          "type": "string"
+        },
+        "record_count": {
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Record Count",
+          "type": "integer"
+        },
+        "row_count_complete": {
+          "default": true,
+          "title": "Row Count Complete",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "dataset_id",
+        "source_sha256",
+        "encoding",
+        "record_count"
+      ],
+      "title": "CatalogStamp",
+      "type": "object"
+    },
+    "Coverage": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "requested": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested"
+        },
+        "returned": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Returned"
+        },
+        "output_truncated": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Truncated"
+        },
+        "profile_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "Coverage",
+      "type": "object"
+    },
+    "FieldCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "record": {
+          "$ref": "#/$defs/RecordRef"
+        },
+        "field_id": {
+          "enum": [
+            "id",
+            "name",
+            "brand",
+            "size",
+            "unit",
+            "price",
+            "category",
+            "description"
+          ],
+          "title": "Field Id",
+          "type": "string"
+        },
+        "pointer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProductPointer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resolution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Resolution"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "issue_code": {
+          "anyOf": [
+            {
+              "maxLength": 96,
+              "minLength": 1,
+              "pattern": "^[a-z][a-z0-9_.-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Issue Code"
+        }
+      },
+      "required": [
+        "record",
+        "field_id",
+        "pointer",
+        "resolution",
+        "issue_code"
+      ],
+      "title": "FieldCheck",
+      "type": "object"
+    },
+    "JudgmentProposal": {
+      "additionalProperties": false,
+      "description": "Raw signals plus explicit calibration provenance, never a human event.",
+      "properties": {
+        "schema_version": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "judgment_proposal",
+          "default": "judgment_proposal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "fuzzy",
+            "rules",
+            "jev",
+            "llm"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "unavailable",
+            "invalid",
+            "error"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "relatedness": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relatedness"
+        },
+        "native_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Confidence"
+        },
+        "native_probabilities": {
+          "anyOf": [
+            {
+              "items": {
+                "maximum": 1,
+                "minimum": 0,
+                "type": "number"
+              },
+              "maxItems": 10,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Probabilities"
+        },
+        "p_same": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P Same"
+        },
+        "calibration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CalibrationEvidence"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "issue_codes": {
+          "default": [],
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-z][a-z0-9_.-]*$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Issue Codes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "method",
+        "status"
+      ],
+      "title": "JudgmentProposal",
+      "type": "object"
+    },
+    "PacketEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "pair_key": {
+          "pattern": "^pk1:[0-9a-f]{64}$",
+          "title": "Pair Key",
+          "type": "string"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PairSubject"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "generation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PairGeneration"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_head_event_id": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observed Head Event Id"
+        },
+        "retractable_event_id": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Retractable Event Id"
+        },
+        "issue_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "canonical_identity_unsupported",
+                "journal_read_only"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Issue Code"
+        }
+      },
+      "required": [
+        "pair_key",
+        "subject",
+        "generation",
+        "observed_head_event_id",
+        "retractable_event_id",
+        "issue_code"
+      ],
+      "title": "PacketEntry",
+      "type": "object"
+    },
+    "PairGeneration": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "pair",
+          "title": "Kind",
+          "type": "string"
+        },
+        "profile": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Profile",
+          "type": "string"
+        },
+        "pair_generation": {
+          "pattern": "^pg1:[0-9a-f]{64}$",
+          "title": "Pair Generation",
+          "type": "string"
+        },
+        "raw_fingerprints": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          ],
+          "title": "Raw Fingerprints",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "profile",
+        "pair_generation",
+        "raw_fingerprints"
+      ],
+      "title": "PairGeneration",
+      "type": "object"
+    },
+    "PairIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "refs": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/entity_matcher__shared__match__models__RecordIdentity"
+            },
+            {
+              "$ref": "#/$defs/entity_matcher__shared__match__models__RecordIdentity"
+            }
+          ],
+          "title": "Refs",
+          "type": "array"
+        },
+        "raw_fingerprints": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          ],
+          "title": "Raw Fingerprints",
+          "type": "array"
+        },
+        "pair_key": {
+          "maxLength": 68,
+          "minLength": 68,
+          "pattern": "^pk1:[0-9a-f]{64}$",
+          "title": "Pair Key",
+          "type": "string"
+        },
+        "pair_generation": {
+          "maxLength": 68,
+          "minLength": 68,
+          "pattern": "^pg1:[0-9a-f]{64}$",
+          "title": "Pair Generation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "refs",
+        "raw_fingerprints",
+        "pair_key",
+        "pair_generation"
+      ],
+      "title": "PairIdentity",
+      "type": "object"
+    },
+    "PairSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "pair",
+          "title": "Kind",
+          "type": "string"
+        },
+        "pair_key": {
+          "pattern": "^pk1:[0-9a-f]{64}$",
+          "title": "Pair Key",
+          "type": "string"
+        },
+        "refs": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/entity_matcher__shared__rulings__models__RecordIdentity"
+            },
+            {
+              "$ref": "#/$defs/entity_matcher__shared__rulings__models__RecordIdentity"
+            }
+          ],
+          "title": "Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "pair_key",
+        "refs"
+      ],
+      "title": "PairSubject",
+      "type": "object"
+    },
+    "ProductLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "quote": {
+          "maxLength": 32768,
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "excerpt_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Excerpt Sha256",
+          "type": "string"
+        },
+        "dataset_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "record_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string"
+        },
+        "field_id": {
+          "enum": [
+            "id",
+            "name",
+            "brand",
+            "size",
+            "unit",
+            "price",
+            "category",
+            "description"
+          ],
+          "title": "Field Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quote",
+        "excerpt_sha256",
+        "dataset_id",
+        "record_id",
+        "field_id"
+      ],
+      "title": "ProductLocator",
+      "type": "object"
+    },
+    "ProductPointer": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Sha256",
+          "type": "string"
+        },
+        "source_revision": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Source Revision",
+          "type": "string"
+        },
+        "evidence_artifact_sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Artifact Sha256",
+          "type": "string"
+        },
+        "provenance_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "kind": {
+          "const": "row:id",
+          "title": "Kind",
+          "type": "string"
+        },
+        "source_type": {
+          "const": "product_catalog",
+          "title": "Source Type",
+          "type": "string"
+        },
+        "locator_subtype": {
+          "const": "record_field",
+          "title": "Locator Subtype",
+          "type": "string"
+        },
+        "locator": {
+          "$ref": "#/$defs/ProductLocator"
+        }
+      },
+      "required": [
+        "source_id",
+        "source_sha256",
+        "source_revision",
+        "evidence_artifact_sha256",
+        "kind",
+        "source_type",
+        "locator_subtype",
+        "locator"
+      ],
+      "title": "ProductPointer",
+      "type": "object"
+    },
+    "ProductReviewPage": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "product_review_page",
+          "default": "product_review_page",
+          "title": "Kind",
+          "type": "string"
+        },
+        "authority": {
+          "const": "machine_proposals_only",
+          "default": "machine_proposals_only",
+          "title": "Authority",
+          "type": "string"
+        },
+        "workspace_id": {
+          "maxLength": 67,
+          "minLength": 67,
+          "pattern": "^s4-[0-9a-f]{64}$",
+          "title": "Workspace Id",
+          "type": "string"
+        },
+        "catalogs": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/CatalogStamp"
+            },
+            {
+              "$ref": "#/$defs/CatalogStamp"
+            }
+          ],
+          "title": "Catalogs",
+          "type": "array"
+        },
+        "report": {
+          "$ref": "#/$defs/CandidateOverview"
+        },
+        "offset": {
+          "maximum": 500000,
+          "minimum": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "limit": {
+          "default": 50,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/ReviewItem"
+          },
+          "maxItems": 100,
+          "title": "Items",
+          "type": "array"
+        },
+        "next_offset": {
+          "anyOf": [
+            {
+              "maximum": 500000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Next Offset"
+        },
+        "preview_truncated": {
+          "title": "Preview Truncated",
+          "type": "boolean"
+        },
+        "unsupported_records_on_page": {
+          "maximum": 200,
+          "minimum": 0,
+          "title": "Unsupported Records On Page",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "workspace_id",
+        "catalogs",
+        "report",
+        "offset",
+        "items",
+        "next_offset",
+        "preview_truncated",
+        "unsupported_records_on_page"
+      ],
+      "title": "ProductReviewPage",
+      "type": "object"
+    },
+    "RawProduct": {
+      "additionalProperties": false,
+      "description": "Eight decoded raw strings; no price, size or unit parsing occurs here.",
+      "properties": {
+        "id": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "name": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "brand": {
+          "maxLength": 8192,
+          "title": "Brand",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "size": {
+          "maxLength": 8192,
+          "title": "Size",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "unit": {
+          "maxLength": 8192,
+          "title": "Unit",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "price": {
+          "maxLength": 8192,
+          "title": "Price",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "category": {
+          "maxLength": 8192,
+          "title": "Category",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "description": {
+          "maxLength": 8192,
+          "title": "Description",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "brand",
+        "size",
+        "unit",
+        "price",
+        "category",
+        "description"
+      ],
+      "title": "RawProduct",
+      "type": "object"
+    },
+    "RecordRef": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 256
+        },
+        "record_id": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        },
+        "content_hash": {
+          "maxLength": 64,
+          "minLength": 64,
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_id",
+        "record_id",
+        "content_hash"
+      ],
+      "title": "RecordRef",
+      "type": "object"
+    },
+    "ReferencedProduct": {
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/RecordRef"
+        },
+        "raw": {
+          "$ref": "#/$defs/RawProduct"
+        }
+      },
+      "required": [
+        "ref",
+        "raw"
+      ],
+      "title": "ReferencedProduct",
+      "type": "object"
+    },
+    "Resolution": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "resolved",
+            "unsupported",
+            "stale",
+            "missing",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "checked_source_revision": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checked Source Revision"
+        },
+        "checked_source_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checked Source Sha256"
+        },
+        "checked_artifact_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checked Artifact Sha256"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "enum": [
+                "text",
+                "spatial",
+                "text_and_spatial",
+                "asserted_spatial"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope"
+        },
+        "excerpt": {
+          "anyOf": [
+            {
+              "maxLength": 32768,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt"
+        },
+        "excerpt_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 64,
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt Sha256"
+        },
+        "reason": {
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9_]{0,63}$",
+          "title": "Reason",
+          "type": "string"
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResolutionProvenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "status",
+        "reason"
+      ],
+      "title": "Resolution",
+      "type": "object"
+    },
+    "ResolutionProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "geometry_provenance": {
+          "anyOf": [
+            {
+              "enum": [
+                "measured_ocr",
+                "native",
+                "model_claimed",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Geometry Provenance"
+        },
+        "ocr_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ocr Confidence"
+        },
+        "owner_resolution_scope": {
+          "anyOf": [
+            {
+              "const": "redacted_text",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner Resolution Scope"
+        },
+        "view_kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "raw_source",
+                "redacted_result"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "View Kind"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Coverage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "profile_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "ResolutionProvenance",
+      "type": "object"
+    },
+    "ReviewItem": {
+      "additionalProperties": false,
+      "properties": {
+        "pair": {
+          "$ref": "#/$defs/PairIdentity"
+        },
+        "records": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/ReferencedProduct"
+            },
+            {
+              "$ref": "#/$defs/ReferencedProduct"
+            }
+          ],
+          "title": "Records",
+          "type": "array"
+        },
+        "proposal": {
+          "$ref": "#/$defs/ReviewProposal"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/FieldCheck"
+          },
+          "maxItems": 16,
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "pair",
+        "records",
+        "proposal",
+        "evidence"
+      ],
+      "title": "ReviewItem",
+      "type": "object"
+    },
+    "ReviewProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "review_proposal",
+          "default": "review_proposal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "pair": {
+          "$ref": "#/$defs/PairIdentity"
+        },
+        "judgment": {
+          "$ref": "#/$defs/JudgmentProposal"
+        },
+        "proposed_outcome": {
+          "enum": [
+            "unlinked",
+            "review",
+            "merge"
+          ],
+          "title": "Proposed Outcome",
+          "type": "string"
+        },
+        "reason_codes": {
+          "default": [],
+          "items": {
+            "maxLength": 96,
+            "minLength": 1,
+            "pattern": "^[a-z][a-z0-9_.-]*$",
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Reason Codes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "pair",
+        "judgment",
+        "proposed_outcome"
+      ],
+      "title": "ReviewProposal",
+      "type": "object"
+    },
+    "entity_matcher__shared__match__models__RecordIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 256
+        },
+        "record_id": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string",
+          "x-maxUtf8Bytes": 8192
+        }
+      },
+      "required": [
+        "dataset_id",
+        "record_id"
+      ],
+      "title": "RecordIdentity",
+      "type": "object"
+    },
+    "entity_matcher__shared__rulings__models__RecordIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "record_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Record Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_id",
+        "record_id"
+      ],
+      "title": "RecordIdentity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 1,
+      "maximum": 1,
+      "minimum": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "kind": {
+      "const": "product_ruling_packet",
+      "default": "product_ruling_packet",
+      "title": "Kind",
+      "type": "string"
+    },
+    "authority": {
+      "const": "provisional_review_only",
+      "default": "provisional_review_only",
+      "title": "Authority",
+      "type": "string"
+    },
+    "packet_id": {
+      "pattern": "^rp1:[0-9a-f]{64}$",
+      "title": "Packet Id",
+      "type": "string"
+    },
+    "namespace": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Namespace",
+      "type": "string"
+    },
+    "page": {
+      "$ref": "#/$defs/ProductReviewPage"
+    },
+    "journal_status": {
+      "enum": [
+        "clean",
+        "repair_required",
+        "limit_exceeded"
+      ],
+      "title": "Journal Status",
+      "type": "string"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/PacketEntry"
+      },
+      "maxItems": 100,
+      "title": "Entries",
+      "type": "array"
+    }
+  },
+  "required": [
+    "packet_id",
+    "namespace",
+    "page",
+    "journal_status",
+    "entries"
+  ],
+  "title": "ProductRulingPacket",
+  "type": "object"
+}
