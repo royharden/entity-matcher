@@ -14,32 +14,35 @@ export type Inspection = {
 };
 const digest = /^[0-9a-f]{64}$/;
 function refuse(): never { throw new Error("Unsupported or inconsistent candidate report."); }
-function object(value: unknown): ObjectMap {
+export function object(value: unknown): ObjectMap {
   if (value === null || typeof value !== "object" || Array.isArray(value)) return refuse();
   return value as ObjectMap;
 }
-function integer(value: unknown, maximum: number): number {
+export function integer(value: unknown, maximum: number): number {
   if (typeof value !== "number" || !Number.isSafeInteger(value) || value < 0 || value > maximum) return refuse();
   return value;
 }
-function text(value: unknown, maximum: number): string {
+export function text(value: unknown, maximum: number): string {
   if (typeof value !== "string" || !value || new TextEncoder().encode(value).length > maximum || /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(value)) return refuse();
   return value;
 }
-function sha(value: unknown): string {
+export function sha(value: unknown): string {
   if (typeof value !== "string" || !digest.test(value)) return refuse();
   return value;
 }
-function array(value: unknown, maximum: number): unknown[] {
+export function array(value: unknown, maximum: number): unknown[] {
   if (!Array.isArray(value) || value.length > maximum) return refuse();
   return value;
 }
-export function parseInspection(bytes: Uint8Array): Inspection {
+export function readReportJSON(bytes: Uint8Array): unknown {
   if (bytes.byteLength > MAX_REPORT_BYTES) throw new Error("Choose a report smaller than 20 MiB.");
   let parsed: unknown;
   try { parsed = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes)); }
   catch { throw new Error("Choose a valid UTF-8 JSON candidate report."); }
-  const input = object(parsed);
+  return parsed;
+}
+export function parseInspection(bytes: Uint8Array): Inspection {
+  const input = object(readReportJSON(bytes));
   if (input.stage !== "candidates" || input.judgment_performed !== false || input.human_rulings_applied !== false) return refuse();
   const catalogs = array(input.validation, 2).map(value => {
     const row = object(value);
