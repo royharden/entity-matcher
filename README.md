@@ -42,6 +42,8 @@ Open that JSON with the same file chooser. Each file holds at most100 pairs and2
 
 Python owns source validation, matching and raw-generation checks. The canonical ruling store uses JSONL; canonical provider accounting uses local SQLite through the Python standard library. React inspection runs separately from those local persistence capabilities. The static viewer requires no hosted database. See ARCHITECTURE.md and BOLT-HANDOFF.md.
 
+Optional local API source now wraps the same workspace and review-page producer, with bounded uploads and in-memory retention. Its ASGI/service controls pass; actual FastAPI, HTTP/browser integration and launch setup remain unverified. Current commands do not start an API. Its 20 MiB total encoded request limit is stricter than the CLI's 20 MiB per-file limit because base64 and JSON add overhead.
+
 Implemented models and digest profiles are documented in docs/matching-models.md; generated schemas are in schemas/match/ and schemas/review/. VENDORED/ records exact source commits, file digests, notices and capability limits for the canonical modules. Product adapters use their unchanged codecs. The canonical evaluation library supplies frozen-corpus checks, statistics and paired group resampling; S4's real corpus adapter, group metadata and evaluation remain pending. See docs/LIMITATIONS.md for unsupported identities, partial workflow and unmeasured quality gates.
 
 Accuracy, blocking recall, review burden, provider usage/cost and latency are not yet measured. No results table or completed review round trip is claimed. The intended fuzzy/rules/Jev/LLM comparison must use frozen data and generated results.

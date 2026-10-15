@@ -6,6 +6,8 @@ Implemented source: bounded CSV/candidate core, strict models/identity, offline 
 
 Current checks: npm ci, npm run typecheck, npm run build; uv sync --frozen, uv run pytest, uv run python scripts/generate_match_schemas.py --check, uv run python scripts/check_public_tree.py, uv run python -m entity_matcher. Actual executions are recorded separately by the local build owner. A successful build is not Bolt import/deployment evidence.
 
-Python services, JSONL rulings, SQLite accounting and future model calls need an implemented backend with server-only configuration and verified lifecycle. Static frontend hosting does not execute Python or provision those capabilities. Hosting/provisioning/publication remains pending.
+Optional local comparison API source wraps the existing page producer, with bounded original-byte uploads and two-workspace retention. Its ASGI/service controls pass; actual FastAPI/runtime/HTTP/browser integration and a launcher remain unverified. The 20 MiB total encoded request ceiling is an explicit narrower API limit. Journal writes, genuine person review and provider dispatch are absent from this API source.
+
+Python services, JSONL rulings, SQLite accounting and future model calls need a verified backend with server-only configuration and lifecycle. Static frontend hosting does not execute Python or provision those capabilities. Hosting/provisioning/publication remains pending.
 
 Preparation prompt: inspect this repository and preserve the root Vite frontend and separate Python boundary. Keep file inspection usable without hosted services. Report the unimplemented backend and verification gates before proposing provisioning. Request no provider keys in browser code. Test actual static import compatibility when import is authorized; a local build alone is not deployment evidence.
