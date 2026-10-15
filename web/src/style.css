@@ -1,4 +1,9 @@
 :root { font-family: Inter, system-ui, sans-serif; color: #1e293b; background: #f5f7fb; }
+.draft-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 0; }
+.draft-actions { margin-top: 24px; border: 1px solid #b9c8e7; border-radius: 10px; padding: 18px; }
+.draft-actions:focus-visible, textarea:focus-visible { outline: 3px solid #4b77d1; outline-offset: 3px; }
+.draft-actions button[aria-pressed="true"] { background: #183a76; color: white; }
+.draft-actions textarea { width: 100%; margin-top: 8px; padding: 10px; font: inherit; resize: vertical; }
 body { margin: 0; }
 main { max-width: 800px; margin: 8vh auto; padding: 24px; }
 .eyebrow { color: #52637c; font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; }

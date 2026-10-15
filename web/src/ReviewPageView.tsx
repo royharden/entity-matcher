@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { RAW_FIELDS, type ReviewPage } from "./reviewPage";
+import { useState, type ReactNode } from "react";
+import { RAW_FIELDS, type ReviewItemView, type ReviewPage } from "./reviewPage";
 
 const percent = (value: number | null) => value === null ? "Unavailable" : `${(value * 100).toFixed(1)}%`;
 const score = (value: number | null) => value === null ? "Unavailable" : value.toFixed(3);
-export function ReviewPageView({ page }: { page: ReviewPage }) {
+export function ReviewPageView({ page, renderActions }: { page: ReviewPage; renderActions?: (item: ReviewItemView) => ReactNode }) {
   const [filter, setFilter] = useState("");
   const [offset, setOffset] = useState(0);
   const items = page.items.filter(item => item.records.some(record =>
@@ -44,6 +44,7 @@ export function ReviewPageView({ page }: { page: ReviewPage }) {
           </div>)}
         </details>
         <details><summary>Reported pair identity</summary><code>{item.key}</code><code>{item.generation}</code></details>
+        {renderActions?.(item)}
       </article>)}
       {items.length === 0 && <p>No pairs match this search.</p>}
       <nav aria-label="Imported review page navigation"><button disabled={current === 0} onClick={() => setOffset(current - 1)}>Previous</button>

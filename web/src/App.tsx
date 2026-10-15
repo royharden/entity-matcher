@@ -2,24 +2,33 @@ import { useRef, useState } from "react";
 import { MAX_REPORT_BYTES, object, parseInspection, readReportJSON, type Inspection } from "./inspection";
 import { parseReviewPage, type ReviewPage } from "./reviewPage";
 import { ReviewPageView } from "./ReviewPageView";
+import { hasRulingPacketTag, parseRulingPacket, type RulingPacket } from "./rulingPacket";
+import { RulingPacketView } from "./RulingPacketView";
 
 export function App() {
   const [inspection, setInspection] = useState<Inspection | null>(null);
   const [reviewPage, setReviewPage] = useState<ReviewPage | null>(null);
+  const [rulingPacket, setRulingPacket] = useState<RulingPacket | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(0);
   const request = useRef(0);
+  const draftPresent = useRef(false);
   async function open(file: File | undefined) {
+    if (file && draftPresent.current && !window.confirm("Replace the current draft? Download decisions first if you want to keep them.")) return;
+    draftPresent.current = false;
     const ticket = ++request.current;
-    setInspection(null); setReviewPage(null); setError(""); setPage(0); setFilter("");
+    setInspection(null); setReviewPage(null); setRulingPacket(null); setError(""); setPage(0); setFilter("");
     setBusy(Boolean(file));
     if (!file) return;
     try {
       if (file.size > MAX_REPORT_BYTES) throw new Error("Choose a report smaller than 20 MiB.");
       const bytes = new Uint8Array(await file.arrayBuffer());
-      if (object(readReportJSON(bytes)).kind === "product_review_page") {
+      if (hasRulingPacketTag(bytes)) {
+        const result = parseRulingPacket(bytes);
+        if (ticket === request.current) setRulingPacket(result);
+      } else if (object(readReportJSON(bytes)).kind === "product_review_page") {
         const result = parseReviewPage(bytes);
         if (ticket === request.current) setReviewPage(result);
       } else {
@@ -39,14 +48,15 @@ export function App() {
       <p className="intro">Inspect the candidate pairs from your local comparison.</p></header>
     <section aria-labelledby="open-heading" className="open-panel">
       <div><span className="badge">Candidate preview</span><h2 id="open-heading">Open a comparison report</h2>
-        <p>Choose a candidate report or product review page. Its contents stay in this page.</p></div>
+        <p>Choose a candidate report, review page or ruling packet. Its contents stay in this page.</p></div>
       <label className="file-button">Choose report<input type="file" accept=".json,application/json"
         onChange={event => { void open(event.target.files?.[0]); event.target.value = ""; }} /></label>
-      <p className="muted">Candidates are suggestions for inspection. This view records no decisions.</p>
+      <p className="muted">Candidates are suggestions. Ruling packets support local decision drafts for download; this page cannot write your journal.</p>
     </section>
     {busy && <p role="status">Opening report…</p>}
     {error && <p className="error" role="alert">{error}</p>}
     {reviewPage && <ReviewPageView key={request.current} page={reviewPage} />}
+    {rulingPacket && <RulingPacketView key={request.current} packet={rulingPacket} onDraftPresentChange={present => { draftPresent.current = present; }} />}
     {inspection && <>
       <section aria-labelledby="summary-heading"><h2 id="summary-heading">Imported report</h2>
         <p className="muted">Counts and identifiers are reported metadata. Catalog contents and current source revisions have not been checked here.</p>

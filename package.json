@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test:web": "node --test web/tests/inspection.test.mjs web/tests/reviewPage.test.mjs",
+    "test:web": "node --test web/tests/inspection.test.mjs web/tests/reviewPage.test.mjs web/tests/rulingPacket.test.mjs",
     "build": "npm run typecheck && vite build"
   },
   "engines": { "node": ">=22.12.0" },
