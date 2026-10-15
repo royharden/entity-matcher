@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "status": "untuned_defaults_no_quality_acceptance",
+  "seed": 4041,
+  "min_bin_support": 20,
+  "proposal_policy": {"merge_at": 0.99, "unlinked_at": 0.1},
+  "dev_objective": {"false_positive_cost": 5, "terminal_false_negative_cost": 1, "review_cost": 0.2},
+  "required_floors": {"blocking_recall": 0.98, "point_precision": 0.99, "true_merges": 1, "automatic_recall": 0.5},
+  "heldout_execution": "requires_separate_frozen_controller_authorization"
+}
