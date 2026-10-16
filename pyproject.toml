@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling==1.27.0"]
+requires = ["hatchling==1.27.0", "editables==0.6"]
 build-backend = "hatchling.build"
 
 [project]
@@ -18,7 +18,7 @@ fuzzy = ["rapidfuzz==3.14.6"]
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.9", "httpx==0.28.1"]
-build = ["hatchling==1.27.0"]
+build = ["hatchling==1.27.0", "editables==0.6"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/entity_matcher"]
