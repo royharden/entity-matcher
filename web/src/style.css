@@ -55,3 +55,7 @@ dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; unicode-bidi: pl
 blockquote { border-left: 3px solid #d5e0f6; margin: 12px 0; padding: 8px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
 details { margin: 12px 0; }
 @media (max-width: 650px) { .score-grid { grid-template-columns: 1fr; gap: 0; } .raw-field { grid-template-columns: 70px minmax(0, 1fr); } }
+
+.replacement-dialog { max-width: min(34rem, calc(100vw - 3rem)); border: 1px solid #8d9890; border-radius: .75rem; padding: 1.5rem; color: inherit; background: #fffdf6; box-shadow: 0 1rem 4rem #172b2833; }
+.replacement-dialog::backdrop { background: #172b2870; }
+.replacement-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }

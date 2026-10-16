@@ -1,62 +1,57 @@
 import { useRef, useState } from "react";
-import { MAX_REPORT_BYTES, object, parseInspection, readReportJSON, type Inspection } from "./inspection";
+import { object, parseInspection, readReportJSON, type Inspection } from "./inspection";
 import { parseReviewPage, type ReviewPage } from "./reviewPage";
 import { ReviewPageView } from "./ReviewPageView";
 import { hasRulingPacketTag, parseRulingPacket, type RulingPacket } from "./rulingPacket";
 import { RulingPacketView } from "./RulingPacketView";
+import { ReplacementDialog } from "./ReplacementDialog";
+import { bookmarkFocus, isDraftFocus, useValidatedImport } from "./useValidatedImport";
+
+type ImportedReport = { kind: "packet"; value: RulingPacket } | { kind: "review"; value: ReviewPage } | { kind: "inspection"; value: Inspection };
 
 export function App() {
   const [inspection, setInspection] = useState<Inspection | null>(null);
   const [reviewPage, setReviewPage] = useState<ReviewPage | null>(null);
   const [rulingPacket, setRulingPacket] = useState<RulingPacket | null>(null);
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(0);
-  const request = useRef(0);
+  const [version, setVersion] = useState(0);
+  const input = useRef<HTMLInputElement>(null);
+  const lastFocus = useRef<HTMLElement | null>(null);
   const draftPresent = useRef(false);
-  async function open(file: File | undefined) {
-    if (file && draftPresent.current && !window.confirm("Replace the current draft? Download decisions first if you want to keep them.")) return;
-    draftPresent.current = false;
-    const ticket = ++request.current;
-    setInspection(null); setReviewPage(null); setRulingPacket(null); setError(""); setPage(0); setFilter("");
-    setBusy(Boolean(file));
-    if (!file) return;
-    try {
-      if (file.size > MAX_REPORT_BYTES) throw new Error("Choose a report smaller than 20 MiB.");
-      const bytes = new Uint8Array(await file.arrayBuffer());
-      if (hasRulingPacketTag(bytes)) {
-        const result = parseRulingPacket(bytes);
-        if (ticket === request.current) setRulingPacket(result);
-      } else if (object(readReportJSON(bytes)).kind === "product_review_page") {
-        const result = parseReviewPage(bytes);
-        if (ticket === request.current) setReviewPage(result);
-      } else {
-        const result = parseInspection(bytes);
-        if (ticket === request.current) setInspection(result);
-      }
-    } catch (error) {
-      if (ticket === request.current) setError(error instanceof Error ? error.message : "Could not open the report.");
-    } finally { if (ticket === request.current) setBusy(false); }
-  }
+  const importer = useValidatedImport<ImportedReport>({
+    parse(bytes) {
+      if (hasRulingPacketTag(bytes)) return { kind: "packet", value: parseRulingPacket(bytes) };
+      if (object(readReportJSON(bytes)).kind === "product_review_page") return { kind: "review", value: parseReviewPage(bytes) };
+      return { kind: "inspection", value: parseInspection(bytes) };
+    },
+    hasDraft: () => draftPresent.current,
+    commit(report) {
+      draftPresent.current = false;
+      setInspection(report.kind === "inspection" ? report.value : null);
+      setReviewPage(report.kind === "review" ? report.value : null);
+      setRulingPacket(report.kind === "packet" ? report.value : null);
+      setVersion(value => value + 1); setPage(0); setFilter("");
+    },
+  });
   const matches = inspection?.candidates.filter(candidate =>
     candidate.refs.some(ref => `${ref.dataset_id} ${ref.record_id}`.toLowerCase().includes(filter.toLowerCase()))) ?? [];
   const pages = Math.max(1, Math.ceil(matches.length / 50));
   const current = Math.min(page, pages - 1);
-  return <main>
+  return <><main onFocusCapture={event => { if (isDraftFocus(event.target)) lastFocus.current = event.target; }}>
     <header><p className="eyebrow">Product catalog review</p><h1>Entity Matcher</h1>
       <p className="intro">Inspect the candidate pairs from your local comparison.</p></header>
     <section aria-labelledby="open-heading" className="open-panel">
       <div><span className="badge">Candidate preview</span><h2 id="open-heading">Open a comparison report</h2>
         <p>Choose a candidate report, review page or ruling packet. Its contents stay in this page.</p></div>
-      <label className="file-button">Choose report<input type="file" accept=".json,application/json"
-        onChange={event => { void open(event.target.files?.[0]); event.target.value = ""; }} /></label>
+      <label className="file-button">Choose report<input ref={input} type="file" accept=".json,application/json"
+        onChange={event => { void importer.open(event.target.files?.[0], bookmarkFocus(lastFocus.current)); event.target.value = ""; }} /></label>
       <p className="muted">Candidates are suggestions. Ruling packets support local decision drafts for download; this page cannot write your journal.</p>
     </section>
-    {busy && <p role="status">Opening report…</p>}
-    {error && <p className="error" role="alert">{error}</p>}
-    {reviewPage && <ReviewPageView key={request.current} page={reviewPage} />}
-    {rulingPacket && <RulingPacketView key={request.current} packet={rulingPacket} onDraftPresentChange={present => { draftPresent.current = present; }} />}
+    {importer.busy && <p role="status">Opening report…</p>}
+    {importer.error && <p className="error" role="alert">{importer.error}</p>}
+    {reviewPage && <ReviewPageView key={version} page={reviewPage} />}
+    {rulingPacket && <RulingPacketView key={version} packet={rulingPacket} onDraftPresentChange={present => { draftPresent.current = present; importer.invalidate(); }} />}
     {inspection && <>
       <section aria-labelledby="summary-heading"><h2 id="summary-heading">Imported report</h2>
         <p className="muted">Counts and identifiers are reported metadata. Catalog contents and current source revisions have not been checked here.</p>
@@ -85,5 +80,6 @@ export function App() {
           <span>Page {current + 1} of {pages}</span><button disabled={current + 1 >= pages} onClick={() => setPage(current + 1)}>Next</button></nav>
       </section>
     </>}
-  </main>;
+  </main><ReplacementDialog id="replace-report" pending={importer.pending} fallback={input}
+    onCancel={importer.cancel} onAccept={importer.accept} /></>;
 }

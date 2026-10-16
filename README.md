@@ -4,7 +4,7 @@ See [the current checkpoint](DEVELOPMENT-STATUS.md) for implemented behavior, ve
 
 Compare two product catalogs and record provisional review decisions locally. CSV inputs remain unchanged; decisions use a separate JSONL journal. Genuine human admission and measured match quality remain unfinished.
 
-The CLI validates catalogs, retrieves bounded candidates, exports raw-field review packets, applies provisional drafts, replays decisions and exports display CSVs. The React viewer source supports packet inspection, decision drafting and file import/download. Its local production build passes; browser behavior remains unverified. Fuzzy/rules scoring requires RapidFuzz and reports unavailable when absent; unfitted probabilities stay unavailable and proposals stay in review.
+The CLI validates catalogs, retrieves bounded candidates, exports raw-field review packets, applies provisional drafts, replays decisions and exports display CSVs. The React viewer source supports packet inspection, decision drafting and file import/download. Its local production build passes. A bounded browser exercise verifies malformed-file refusal, packet inspection, provisional drafting and an actual saved download; replacement confirmation and the complete browser flow remain unverified. Fuzzy/rules scoring requires RapidFuzz and reports unavailable when absent; unfitted probabilities stay unavailable and proposals stay in review.
 
 ## Keyless setup
 
@@ -43,7 +43,7 @@ For the frozen synthetic demo, save a report and open it with **Choose report** 
 
     uv run python -m entity_matcher candidates fixtures/independent/demo/catalog-A.csv fixtures/independent/demo/catalog-B.csv --aliases fixtures/independent/brand-aliases.csv --max-output 100 > candidate-preview.json
 
-The viewer shows reported counts, caps, omissions and paged candidate identities. Search covers the imported preview. Candidate reports and review pages are inspection-only; ruling packets enable provisional local drafts. File import does not establish source freshness or authority. Browser interaction still requires verification.
+The viewer shows reported counts, caps, omissions and paged candidate identities. Search covers the imported preview. Candidate reports and review pages are inspection-only; ruling packets enable provisional local drafts. File import does not establish source freshness or authority. The initial file-inspection/draft/download path is exercised; complete browser interaction still requires verification.
 
 To include aligned raw fields, machine proposals and field-evidence metadata, export a review page:
 
@@ -59,7 +59,7 @@ For your own catalogs, create an owner-controlled journal directory first. Use t
     uv run python -m entity_matcher apply-rulings catalog-a.csv catalog-b.csv --journal-dir local-journal --namespace my-products --packet review-packet.json --draft entity-matcher-decisions.json
     uv run python -m entity_matcher export catalog-a.csv catalog-b.csv --journal-dir local-journal --namespace my-products --view pairs > pair-review.csv
 
-When the frontend is running, open review-packet.json with Choose report. Match/different/unsure choices and reasons stay in local draft state. Download decisions and apply them with Python; the browser cannot write the journal. Skip/clearing an unsubmitted draft creates no event. Generate a fresh packet before retracting a recorded decision. Existing-head retraction appends a tombstone rather than reviving earlier decisions.
+When the frontend is running, open review-packet.json with Choose report. Match/different/unsure choices and reasons stay in local draft state. Download decisions and apply them with Python; the browser cannot write the journal. A replacement file is validated before asking to discard an existing draft. The in-page dialog initially focuses Keep current draft; Cancel, Escape and default Enter preserve the draft. Explicit Replace accepts the validated file. Editing a draft invalidates a pending read. Focus and text selection return on cancellation. React/DOM controls cover this behavior; actual browser confirmation remains pending. Skip/clearing an unsubmitted draft creates no event. Generate a fresh packet before retracting a recorded decision. Existing-head retraction appends a tombstone rather than reviving earlier decisions.
 
 Apply exits 0 for complete acknowledgement, 2 for invalid/stale inputs, and 3 for a stopped or uncertain write. Receipts disclose acknowledged effects and remaining operation IDs; batches do not roll back. Preserve an uncertain draft and retry its exact operation IDs after reconciliation. A historical retry receipt grants no new current authority. Damaged journals refuse new writes and CSV export; no automatic tail repair is supplied.
 
