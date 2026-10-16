@@ -16,6 +16,8 @@
 - A bounded actual browser file journey refuses malformed JSON, opens a real authored packet, drafts a provisional decision and saves a downloaded file. The installed Python CLI consumes that file and preserves current-source/refusal boundaries. Native replacement-prompt control failed; its dialog/tab closure remains unknown.
 - Report/decisions replacement now validates before an accessible in-page confirmation. Seven React/DOM integration controls pass for exact draft-byte preservation, cancel/Escape/default Enter, explicit accept, keyboard/focus/selection, malformed/read/oversize errors, stale reads and packet-bound decisions. All 106 web controls, typecheck and Vite build pass. DOM dialog methods are explicit test fakes; the new confirmation has not yet passed actual browser interaction.
 
+- A clean tracked Windows frontend export installs its own locked Node dependencies from retained cache with scripts disabled, then passes typecheck, all 106 web controls and Vite production build. HTML/JS/CSS reproduce the prior asset hashes exactly. The cross-language journal control uses a fresh offline Python environment in that export. The initial size-monitor race and the first run without the documented Python prerequisite remain separate failures; native browser verification remains blocked.
+
 ## Worked on; still unverified
 
 The optional API has bounded upload, service, ASGI gate, lazy framework factory and a real loopback launcher. Request-count shutdown is tested; signal-driven shutdown, API/browser integration and the complete browser error/lifecycle suite remain unverified. Initial dependency qualification failed before installation. Later runtime attempts also retained failures from instrumentation and completion-accounting checks; a corrected bounded successor passed without repeating installation. These later results do not change the earlier failures. RapidFuzz is now a declared optional extra. A fresh installed-wheel environment exercises its actual token-sort scorer and dimensional-rule conflicts with tiny authored inputs; probabilities remain unknown and all outcomes remain review proposals. This establishes dependency execution, not match quality.
@@ -24,11 +26,11 @@ The viewer drafts decisions but cannot write the local journal or verify current
 
 ## Outstanding
 
-1. Complete signal-driven lifecycle and API/browser checks, complete moved-root export and non-Windows installation. Fresh Windows hash-checked dependency seeding, offline frozen reconciliation, product-wheel installation and direct frozen registry sync with audited build constraints pass; other platforms and full relocation remain separate. Keep all earlier qualification failures as failures.
+1. Complete signal-driven lifecycle, API/browser and native file/confirmation checks, and non-Windows installation. Separate Windows Python and static-frontend moved-root builds and their local controls pass; full runtime relocation remains separate. Fresh Windows hash-checked dependency seeding, offline frozen reconciliation, product-wheel installation and direct frozen registry sync with audited build constraints pass; other platforms and full relocation remain separate. Keep all earlier qualification failures as failures.
 2. Establish genuine person admission and evidence, including actual review/retraction and human-only component acceptance. Tokens, imported flags and automated tests cannot substitute for that evidence.
 3. Obtain authoritative development group metadata, integrate the real corpus/scorer, fit/tune only on development data and run the required quality evaluations. Missing groups must not become invented singleton bootstrap groups. Heldout and source-integrity acceptance remain separate.
 4. Finish approved live provider/screen integrations, current pricing/accounting and bounded testing. No live keys, model calls or paid benchmark have been exercised here.
-5. Verify reusable/moved-root exports and the static frontend target; complete an independent finished-app review. Cloud resources, repository publication and Bolt deployment are unprovisioned.
+5. Verify the remaining reusable-library consumers and actual static hosting/Bolt compatibility; complete an independent finished-app review. Cloud resources, repository publication and Bolt deployment are unprovisioned.
 
 ## Lessons learned
 
@@ -46,3 +48,5 @@ The viewer drafts decisions but cannot write the local journal or verify current
 - Hatchling editable builds have a separate `editables` requirement. Declare it in both build requirements and the locked build group so an offline no-isolation setup does not depend on an unrecorded build-isolation download. An installed wheel and an editable source install exercise different build paths.
 
 - Validate an incoming replacement before offering destructive consent; keep the current draft mounted until explicit acceptance. Test serialized intent bytes and focus/caret as well as visible text. A DOM fake does not establish native browser behavior.
+
+- Dependency installation and test prerequisites need their own execution evidence. A printed npm package count does not prove clean completion; tolerate atomic cache-file renames in observers, reap owned children on failure, and preserve the failed attempt. Full web controls include the real Python journal boundary and require its environment even when the static frontend build is Node-only.
