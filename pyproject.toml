@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.27"]
+requires = ["hatchling==1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -9,10 +9,16 @@ description = "Local product-catalog comparison with human-reviewed evidence"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
+license-files = ["LICENSE", "VENDORED/**/LICENSE"]
 dependencies = ["pydantic>=2.12,<3"]
 
+[project.optional-dependencies]
+api = ["fastapi==0.143.1", "uvicorn==0.54.0"]
+fuzzy = ["rapidfuzz==3.14.6"]
+
 [dependency-groups]
-dev = ["pytest>=8", "ruff>=0.9"]
+dev = ["pytest>=8", "ruff>=0.9", "httpx==0.28.1"]
+build = ["hatchling==1.27.0"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/entity_matcher"]

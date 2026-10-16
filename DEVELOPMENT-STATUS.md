@@ -1,4 +1,4 @@
-# Development checkpoint — local workflow 2026-10-15
+# Development checkpoint â€” local workflow 2026-10-15
 
 ## Finished local slice
 
@@ -9,17 +9,18 @@
 - The cached root frontend passes `npm run build`, including TypeScript and Vite production compilation. This verifies local build output, with browser interaction and Bolt import still pending.
 - Exact cached optional packages installed locally. Real FastAPI/httpx in-process checks pass status/upload/page routes, raw-byte evidence, closed errors, CORS and Host/Origin/token refusal. The owned Windows supervisor separately passes completion/expiry controls and rejects lasting descendants and oversized output. That in-process qualification did not exercise an application listener or browser journey.
 - The explicit `serve` CLI launches the real optional comparison API on a supplied IPv4 loopback port, with a server-only environment token, one worker, proxy/access logging disabled and an optional request limit. Actual TCP checks pass upload/page parity, Host/Origin/token/proxy refusal, malformed input, declared-size refusal and deterministic busy rejection while a valid upload awaits its body. The bounded server and whole test batch exit normally; owned roots signal, job counts reach zero and the host listener is absent before port release.
+- Declared API/fuzzy extras and exact locked dependencies, with audited public wheel integrity/licenses, a fresh isolated Windows environment, actual RapidFuzz and in-process API behavior, and a product wheel containing the vendored license files. No provider/model execution is involved.
 - Licensed canonical journal/evidence/offline-provider/evaluation source integration, fixed-bin calibration producer and pair-metric primitives. These are implementation capabilities, not measured match-quality results.
 
 ## Worked on; still unverified
 
-The optional API has bounded upload, service, ASGI gate, lazy framework factory and a real loopback launcher. Request-count shutdown is tested; signal-driven shutdown, API/browser integration and the complete browser error/lifecycle suite remain unverified. Initial dependency qualification failed before installation. Later runtime attempts also retained failures from instrumentation and completion-accounting checks; a corrected bounded successor passed without repeating installation. These later results do not change the earlier failures. RapidFuzz remains unavailable and the demo reports that explicitly.
+The optional API has bounded upload, service, ASGI gate, lazy framework factory and a real loopback launcher. Request-count shutdown is tested; signal-driven shutdown, API/browser integration and the complete browser error/lifecycle suite remain unverified. Initial dependency qualification failed before installation. Later runtime attempts also retained failures from instrumentation and completion-accounting checks; a corrected bounded successor passed without repeating installation. These later results do not change the earlier failures. RapidFuzz is now a declared optional extra. A fresh installed-wheel environment exercises its actual token-sort scorer and dimensional-rule conflicts with tiny authored inputs; probabilities remain unknown and all outcomes remain review proposals. This establishes dependency execution, not match quality.
 
 The viewer drafts decisions but cannot write the local journal or verify current catalogs. The enabled Python writer always records agent_provisional. Human admission defaults to denial; a reserved interface is not an implemented trusted issuer.
 
 ## Outstanding
 
-1. Provide portable optional-API dependency setup and complete signal-driven lifecycle and API/browser checks. The tested local environment is not a clean-install proof. Keep all earlier qualification failures as failures.
+1. Complete signal-driven lifecycle and API/browser checks, complete moved-root export and non-Windows installation. Fresh Windows hash-checked dependency seeding, offline frozen reconciliation, product-wheel installation and direct frozen registry sync with audited build constraints pass; other platforms and full relocation remain separate. Keep all earlier qualification failures as failures.
 2. Establish genuine person admission and evidence, including actual review/retraction and human-only component acceptance. Tokens, imported flags and automated tests cannot substitute for that evidence.
 3. Obtain authoritative development group metadata, integrate the real corpus/scorer, fit/tune only on development data and run the required quality evaluations. Missing groups must not become invented singleton bootstrap groups. Heldout and source-integrity acceptance remain separate.
 4. Finish approved live provider/screen integrations, current pricing/accounting and bounded testing. No live keys, model calls or paid benchmark have been exercised here.
@@ -35,3 +36,5 @@ The viewer drafts decisions but cannot write the local journal or verify current
 - Include malformed input in the runnable journey as well as validator tests. Replaying an old acknowledged decision after a tombstone must preserve the current head and exact journal bytes.
 - Network-denial instrumentation must preserve the socket class used by Windows asyncio. Audit hooks after event-loop bootstrap can deny new socket/DNS operations without breaking the loop's existing self pipe; exercise explicit denial controls.
 - A launch notice is not readiness. Verify the actual status route, and use the server's `100 Continue` response to establish that a partial upload is holding the body reader before testing concurrent busy refusal.
+
+- Frozen registry locks address URL-keyed cache artifacts; a local wheel directory alone does not satisfy an offline sync. Hash-check and install the exact wheels into a fresh environment, then reconcile the unchanged frozen lock. Report that staged path separately from a direct blank-environment registry sync.
