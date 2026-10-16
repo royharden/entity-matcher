@@ -56,6 +56,7 @@ const pendingFile = () => {
 };
 let root, container, blobs, downloads;
 const originalCreateURL = URL.createObjectURL, originalRevokeURL = URL.revokeObjectURL;
+const originalFetch = globalThis.fetch;
 URL.createObjectURL = blob => { const id = `blob:test-${blobs.size}`; blobs.set(id, blob); return id; };
 URL.revokeObjectURL = () => {};
 dom.window.HTMLAnchorElement.prototype.click = function () { if (this.download) downloads.push(blobs.get(this.href)); };
@@ -96,7 +97,53 @@ beforeEach(async () => {
 });
 afterEach(async () => {
   await act(async () => root.unmount()); container.remove();
+  globalThis.fetch = originalFetch;
   assert.equal(nativeConfirms, 0, "the safety flow must not invoke a blocking native prompt");
+});
+
+const apiPage = readFileSync(new URL("./fixtures/review-page.json", import.meta.url));
+const csvHeader = '"id","name","brand","size","unit","price","category","description"\r\n';
+const apiCSV = (id, brand) => new File([csvHeader + `"${id}","Café Tea","${brand}","100","g","1","Drinks","<script>literal text</script>"\r\n`], `${id}.csv`);
+const apiStatus = () => new Response(JSON.stringify({kind:"local_read_only_comparison_service",upload_encoded_byte_limit:20*1024*1024,human_rulings_available:false,provider_dispatch_available:false}),{headers:{"Content-Type":"application/json"}});
+async function apiInput(selector, value) {
+  const node=container.querySelector(selector);assert.ok(node,selector);
+  await act(async()=>{Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype,"value").set.call(node,value);node.dispatchEvent(new dom.window.Event("input",{bubbles:true}));});
+}
+async function prepareAPI() {
+  await click("Connect local service");
+  await apiInput('input[inputmode="numeric"]',"20801");await apiInput('input[type="password"]',"T".repeat(32));
+  const inputs=container.querySelectorAll('[data-local-comparison] input[type="file"]');
+  for(const [index, value] of [apiCSV("one","Acme"),apiCSV("two","Other")].entries()){
+    Object.defineProperty(inputs[index],"files",{value:[value],configurable:true});
+    await act(async()=>inputs[index].dispatchEvent(new dom.window.Event("change",{bubbles:true})));
+  }
+}
+async function settleAPI() { await act(async()=>{for(let i=0;i<12;i++)await new Promise(resolve=>setTimeout(resolve,5));}); }
+test("local API preview enters the existing validated report path without decision controls",async()=>{
+  let calls=0;globalThis.fetch=async url=>{calls++;return url.endsWith("/api/status")?apiStatus():new Response(apiPage,{headers:{"Content-Type":"application/json"}});};
+  await prepareAPI();await click("Compare catalogs");await settleAPI();
+  assert.equal(calls,2);assert.ok(container.textContent.includes("Café Tea"));assert.equal(button("Download decisions"),undefined);assert.equal(dialog(),null);
+});
+test("failed API upload preserves the existing exact draft bytes",async()=>{
+  await drafted();const before=await savedDraft();let calls=0;
+  globalThis.fetch=async()=>++calls===1?apiStatus():new Response("untrusted response body",{status:400});
+  await prepareAPI();await click("Compare catalogs");await settleAPI();
+  assert.ok(container.querySelector('[role="alert"]').textContent.includes("refused these catalogs"));
+  assert.deepEqual(await savedDraft(),before);assert.equal(dialog(),null);
+});
+test("API response asks before replacing a draft and Keep preserves exact bytes and selection",async()=>{
+  await drafted();const before=await savedDraft();await prepareAPI();const current=reason();current.focus();current.setSelectionRange(2,9);
+  globalThis.fetch=async url=>url.endsWith("/api/status")?apiStatus():new Response(apiPage,{headers:{"Content-Type":"application/json"}});
+  await click("Compare catalogs");await settleAPI();assert.ok(dialog());equal(reason(),current);await click("Keep current draft");
+  equal(document.activeElement,current);assert.equal(current.selectionStart,2);assert.equal(current.selectionEnd,9);assert.deepEqual(await savedDraft(),before);
+  await click("Compare catalogs");await settleAPI();assert.ok(dialog());await click("Replace current draft");assert.equal(reason(),null);assert.equal(button("Download decisions"),undefined);
+});
+test("draft edit aborts an older API load and a late response cannot clear or prompt for that draft",async()=>{
+  await drafted();await prepareAPI();let calls=0,finish,requestSignal;
+  globalThis.fetch=async(url,init)=>{if(++calls===1)return apiStatus();requestSignal=init.signal;return new Promise(resolve=>{finish=resolve});};
+  await click("Compare catalogs");await settleAPI();assert.ok(finish);await text("Newer draft wins over older API response.");const before=await savedDraft();
+  assert.ok(requestSignal.aborted);await act(async()=>finish(new Response(apiPage,{headers:{"Content-Type":"application/json"}})));await settleAPI();
+  assert.equal(dialog(),null);assert.deepEqual(await savedDraft(),before);assert.equal(reason().value,"Newer draft wins over older API response.");
 });
 after(() => {
   dom.window.close(); URL.createObjectURL = originalCreateURL; URL.revokeObjectURL = originalRevokeURL;

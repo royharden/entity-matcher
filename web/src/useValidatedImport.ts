@@ -36,25 +36,35 @@ export function useValidatedImport<T>(options: ImportOptions<T>) {
   const latest = useRef(options);
   latest.current = options;
   const request = useRef(0);
+  const active = useRef<AbortController | null>(null);
   const [pending, setPending] = useState<PendingImport<T> | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  useEffect(() => () => { request.current++; }, []);
+  useEffect(() => () => { request.current++; active.current?.abort(); }, []);
 
   function invalidate() {
     request.current++;
+    active.current?.abort(); active.current = null;
     setPending(null); setBusy(false); setError("");
   }
   function commit(value: T) {
     request.current++;
+    active.current?.abort(); active.current = null;
     setPending(null); setBusy(false); setError("");
     latest.current.commit(value);
   }
   async function open(file: File | undefined, focus: FocusBookmark) {
     if (!file) return;
+    return openRequest(async () => file, focus);
+  }
+  async function openRequest(load: (signal: AbortSignal) => Promise<File>, focus: FocusBookmark) {
+    active.current?.abort();
+    const controller = new AbortController(); active.current = controller;
     const ticket = ++request.current;
     setPending(null); setError(""); setBusy(true);
     try {
+      const file = await load(controller.signal);
+      if (ticket !== request.current) return;
       if (file.size > MAX_REPORT_BYTES) throw new Error("Choose a report smaller than 20 MiB.");
       let buffer: ArrayBuffer;
       try { buffer = await file.arrayBuffer(); }
@@ -66,14 +76,15 @@ export function useValidatedImport<T>(options: ImportOptions<T>) {
       else commit(value);
     } catch (cause) {
       if (ticket === request.current) setError(latest.current.errorMessage ?? (cause instanceof Error ? cause.message : "Could not open the report."));
-    } finally { if (ticket === request.current) setBusy(false); }
+    } finally { if (ticket === request.current) setBusy(false); if (active.current === controller) active.current = null; }
   }
   function cancel() {
     request.current++;
+    active.current?.abort(); active.current = null;
     setPending(null); setBusy(false);
   }
   function accept() {
     if (pending && pending.ticket === request.current) commit(pending.value);
   }
-  return { open, pending, error, busy, cancel, accept, invalidate };
+  return { open, openRequest, pending, error, busy, cancel, accept, invalidate };
 }

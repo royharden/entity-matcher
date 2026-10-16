@@ -6,6 +6,8 @@ import { hasRulingPacketTag, parseRulingPacket, type RulingPacket } from "./ruli
 import { RulingPacketView } from "./RulingPacketView";
 import { ReplacementDialog } from "./ReplacementDialog";
 import { bookmarkFocus, isDraftFocus, useValidatedImport } from "./useValidatedImport";
+import { LocalComparisonForm } from "./LocalComparisonForm";
+import { compareLocally } from "./localComparison";
 
 type ImportedReport = { kind: "packet"; value: RulingPacket } | { kind: "review"; value: ReviewPage } | { kind: "inspection"; value: Inspection };
 
@@ -38,7 +40,7 @@ export function App() {
     candidate.refs.some(ref => `${ref.dataset_id} ${ref.record_id}`.toLowerCase().includes(filter.toLowerCase()))) ?? [];
   const pages = Math.max(1, Math.ceil(matches.length / 50));
   const current = Math.min(page, pages - 1);
-  return <><main onFocusCapture={event => { if (isDraftFocus(event.target)) lastFocus.current = event.target; }}>
+  return <><main onFocusCapture={event => { if (isDraftFocus(event.target) && !event.target.closest("[data-local-comparison]")) lastFocus.current = event.target; }}>
     <header><p className="eyebrow">Product catalog review</p><h1>Entity Matcher</h1>
       <p className="intro">Inspect the candidate pairs from your local comparison.</p></header>
     <section aria-labelledby="open-heading" className="open-panel">
@@ -48,6 +50,9 @@ export function App() {
         onChange={event => { void importer.open(event.target.files?.[0], bookmarkFocus(lastFocus.current)); event.target.value = ""; }} /></label>
       <p className="muted">Candidates are suggestions. Ruling packets support local decision drafts for download; this page cannot write your journal.</p>
     </section>
+    <LocalComparisonForm busy={importer.busy} onEdit={importer.invalidate} onCompare={request => {
+      void importer.openRequest(signal => compareLocally(request, { origin: window.location.origin, signal }), bookmarkFocus(lastFocus.current));
+    }} />
     {importer.busy && <p role="status">Opening report…</p>}
     {importer.error && <p className="error" role="alert">{importer.error}</p>}
     {reviewPage && <ReviewPageView key={version} page={reviewPage} />}
