@@ -76,3 +76,35 @@ test("loopback HTTP availability excludes file, hosted HTTPS and credential/quer
   assert.ok(localViewerAvailable("http://127.0.0.1:20800"));assert.ok(localViewerAvailable("http://localhost:20800"));
   for(const origin of ["file://", "https://localhost:20800", "http://user@localhost:20800", "http://localhost:20800/?x=1"])assert.equal(localViewerAvailable(origin),false);
 });
+
+for (const expiredDigest of [1, 2]) test(`timeout during source digest ${expiredDigest} cannot return a successful preview`, async t => {
+  // Regression: network completed, but the internal timer fired while WebCrypto
+  // was pending. That expired operation must not become an importable preview.
+  let expire, digests = 0, requests = 0;
+  t.mock.method(globalThis, "setTimeout", callback => { expire = callback; return undefined; });
+  const digest = crypto.subtle.digest.bind(crypto.subtle);
+  t.mock.method(crypto.subtle, "digest", async (...args) => {
+    const result = await digest(...args);
+    if (++digests === expiredDigest) expire();
+    return result;
+  });
+  await assert.rejects(compareLocally(input(), options(async () => ++requests === 1 ? status() : new Response(page, { headers: { "Content-Type": "application/json" } }))), /timed out/);
+  assert.equal(requests, 2);
+  assert.equal(digests, expiredDigest, "expired comparison starts no further source digest");
+});
+
+test("explicit cancellation during a timed-out digest retains AbortError semantics", async t => {
+  let expire, requests = 0;
+  const controller = new AbortController();
+  t.mock.method(globalThis, "setTimeout", callback => { expire = callback; return undefined; });
+  const digest = crypto.subtle.digest.bind(crypto.subtle);
+  t.mock.method(crypto.subtle, "digest", async (...args) => {
+    const result = await digest(...args);
+    expire(); controller.abort();
+    return result;
+  });
+  await assert.rejects(compareLocally(input(), {
+    ...options(async () => ++requests === 1 ? status() : new Response(page, { headers: { "Content-Type": "application/json" } })),
+    signal: controller.signal,
+  }), { name: "AbortError" });
+});

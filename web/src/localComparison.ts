@@ -106,10 +106,11 @@ export async function compareLocally(input: LocalComparison, options: {
     try { page = parseReviewPage(bytes); } catch { return fail("The local service returned an invalid review page."); }
     for (const [index, dataset] of ["a", "b"].entries()) {
       const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", new Uint8Array(catalogs[index])));
+      if (controller.signal.aborted) throw new DOMException("Comparison interrupted.", "AbortError");
       const hex = Array.from(digest, value => value.toString(16).padStart(2, "0")).join("");
       if (page.catalogs.find(catalog => catalog.dataset === dataset)?.sha256 !== hex) return fail("The returned preview does not match the selected CSV files.");
     }
-    if (options.signal.aborted) throw new DOMException("Comparison cancelled.", "AbortError");
+    if (controller.signal.aborted) throw new DOMException("Comparison interrupted.", "AbortError");
     return new File([new Uint8Array(bytes)], "local-comparison.json", { type: "application/json" });
   } catch (error) {
     if (options.signal.aborted) throw new DOMException("Comparison cancelled.", "AbortError");
