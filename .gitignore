@@ -20,3 +20,10 @@ dist/
 *.egg-info/
 build/
 coverage/
+# Local credentials and archives
+ArchiveManager-creds.txt
+*.pem
+*.key
+*.p12
+*.pfx
+*.zip

@@ -1,4 +1,4 @@
-"""Provisional controller over the actual owner journal; no batch rollback or human issuer."""
+"""Local controller with optional trusted-host admission; no built-in human issuer."""
 
 from dataclasses import dataclass
 from typing import Protocol
@@ -26,13 +26,27 @@ class DraftApplyError(ValueError):
 
 
 class HumanAdmissionIssuer(Protocol):
-    """Reserved trusted capability; no branch of this provisional controller invokes it."""
+    """Trusted host capability, never constructed from imported draft/request fields.
 
-    def issue_evidence(self, *, packet_id: str, operation_id: str) -> str: ...
+    Admission must authenticate the reviewer and bind their approval to the complete intent.
+    Only actor attribution may change. Verification must check that complete final intent
+    against retained evidence, also on replay/export. Repeated admission of the same intent
+    must retain the same attribution so exact journal retries stay idempotent.
+    """
+
+    def admit_intent(self, *, packet_id: str, intent: RulingIntent) -> RulingIntent: ...
+
+    def validate_human(self, event: RulingIntent) -> None: ...
 
 
 class DenyHumanAdmission:
     def issue_evidence(self, *, packet_id: str, operation_id: str) -> str:
+        raise DraftApplyError("human_admission_unavailable")
+
+    def admit_intent(self, *, packet_id: str, intent: RulingIntent) -> RulingIntent:
+        raise DraftApplyError("human_admission_unavailable")
+
+    def validate_human(self, event: RulingIntent) -> None:
         raise DraftApplyError("human_admission_unavailable")
 
 
@@ -96,12 +110,15 @@ def apply_draft(
     store: JournalStore,
     *,
     namespace: str,
+    human_admission: HumanAdmissionIssuer | None = None,
 ) -> ApplyResult:
     if type(store) is not JournalStore:
         raise DraftApplyError("actual_owner_journal_required")
     packet, intents = prepare_intents(packet, draft)
     if type(namespace) is not str or packet.namespace != namespace:
         raise DraftApplyError("trusted_journal_namespace_mismatch")
+    if human_admission is not None:
+        intents = tuple(_admit_intent(human_admission, packet.packet_id, i) for i in intents)
     snapshot = store.replay()
     if not snapshot.can_append:
         raise DraftApplyError("journal_read_only")
@@ -117,6 +134,8 @@ def apply_draft(
         if not check_page_sources(packet.page, workspace).current:
             raise DraftApplyError("packet_source_changed")
         head = snapshot.stable_head(packet.namespace, intent.subject)
+        if head is not None and head.actor_provenance == "human" and human_admission is None:
+            raise DraftApplyError("human_admission_required")
         if intent.expected_prior_event_id != (head.event_id if head else None):
             raise DraftApplyError("stable_head_conflict")
         try:
@@ -136,16 +155,64 @@ def apply_draft(
     receipts = []
     for index, intent in enumerate(intents):
         try:
-            receipts.append(store.append(intent, validator))
+            append_validator = (
+                _HumanGenerationValidator(validator, human_admission, intent)
+                if human_admission is not None
+                else validator
+            )
+            receipts.append(store.append(intent, append_validator))
         except AppendUncertain:
             return ApplyResult(
                 tuple(receipts),
                 tuple(i.event_id for i in intents[index:]),
                 "journal_append_uncertain",
                 intent.event_id,
+                human_admission_available=human_admission is not None,
             )
         except (JournalError, ValueError):
             return ApplyResult(
-                tuple(receipts), tuple(i.event_id for i in intents[index:]), "journal_write_stopped"
+                tuple(receipts),
+                tuple(i.event_id for i in intents[index:]),
+                "journal_write_stopped",
+                human_admission_available=human_admission is not None,
             )
-    return ApplyResult(tuple(receipts), (), None)
+    return ApplyResult(
+        tuple(receipts), (), None, human_admission_available=human_admission is not None
+    )
+
+
+def _admit_intent(
+    authority: HumanAdmissionIssuer, packet_id: str, provisional: RulingIntent
+) -> RulingIntent:
+    try:
+        attribution = {"actor_label", "actor_provenance", "actor_provenance_ref"}
+        expected = provisional.model_dump(exclude=attribution)
+        admitted = authority.admit_intent(packet_id=packet_id, intent=provisional)
+        # Revalidate unchecked model_copy mutations and reject noncanonical return objects.
+        if type(admitted) is not RulingIntent:
+            raise ValueError("canonical intent required")
+        admitted = RulingIntent.model_validate_json(admitted.model_dump_json())
+        if (
+            admitted.actor_provenance != "human"
+            or admitted.model_dump(exclude=attribution) != expected
+            or authority.validate_human(admitted) is not None
+        ):
+            raise ValueError("unverified or altered human intent")
+        return admitted
+    except Exception:
+        # Host errors/evidence contents must not leak through the public controller surface.
+        raise DraftApplyError("human_admission_refused") from None
+
+
+@dataclass(frozen=True)
+class _HumanGenerationValidator:
+    source: ProductGenerationValidator
+    authority: HumanAdmissionIssuer
+    intent: RulingIntent
+
+    def validate(self, subject, generation) -> None:
+        self.source.validate(subject, generation)
+        # The journal invokes this under its append lock, after its current-head check.
+        # A host revocation between batch admission and append must still refuse the write.
+        if self.authority.validate_human(self.intent) is not None:
+            raise DraftApplyError("human_admission_refused")
